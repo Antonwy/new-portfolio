@@ -10,9 +10,9 @@ const Grid = styled.div`
     height: 100%;
     display: grid;
     grid-template-areas:
-    'lt mt mt0 rt'
-    'lm mm mm0 rm'
-    'lb mb mb0 rb';
+    'lt lt0 lt1 mt mt0 mt1 rt rt0 rt1'
+    'lm lm0 lm1 mm mm0 mm1 rm rm0 rm1'
+    'lb lb0 lb1 mb mb0 mb1 rb rb0 rb1';
     padding: 40px;
     z-index: 2;
 
@@ -44,38 +44,38 @@ const MyWork = () => {
         <Card>
             <NavBar index="2"/>
             <Grid>
-                <WorkItem 
+            <WorkItem 
                     size={12} 
                     color={{from: "#4040F4", to: "#713FFA"}} 
-                    gridArea="lt" 
+                    gridArea="lt0" 
                     title="FoodAssistant"
                     url="http://159.69.117.200/#/dashboard"
                     />
                 <WorkItem 
                     size={11} 
                     color={{from: "#3FC8FA", to: "#4040F4"}} 
-                    gridArea="rt" 
+                    gridArea="mm" 
                     title="TodoList"
                     url="https://antonwy.github.io/todo-list/"
                     />
                 <WorkItem 
                     size={13} 
                     color={{from: "#40AFF4", to: "#3FFA87"}} 
-                    gridArea="mt0" 
+                    gridArea="rt" 
                     title="Portfolio1"
                     url="https://antonwy.github.io/portfolio_website/"
                     />
                 <WorkItem 
                     size={12} 
                     color={{from: "#8967E8", to: "#612DB5"}} 
-                    gridArea="mm" 
+                    gridArea="rm0" 
                     title="Portfolio2"
                     url="https://antonwy.github.io/my_portfolio/"
                     />
                 <WorkItem 
                     size={16} 
                     color={{from: "#F44040", to: "#713FFA"}} 
-                    gridArea="lb" 
+                    gridArea="lm" 
                     title="Apps"
                     url="http://antonwy.bplaced.net/#"
                     />
@@ -89,7 +89,7 @@ const MyWork = () => {
                 <WorkItem 
                     size={14} 
                     color={{from: "#F4AF40", to: "#F4D15C"}} 
-                    gridArea="mb0" 
+                    gridArea="lb0" 
                     title="Weather"
                     url=""
                     />
