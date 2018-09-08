@@ -6,8 +6,8 @@ import styled from 'styled-components'
 import { SMALL } from '../ScreenSizes';
 
 const Grid = styled.div`
-    width: 100%;
-    height: 100%;
+    width: calc(100% - 120px);
+    height: calc(100% - 35px);
     display: grid;
     grid-template-areas:
     'lt lt0 lt1 mt mt0 mt1 rt rt0 rt1'
@@ -15,6 +15,7 @@ const Grid = styled.div`
     'lb lb0 lb1 mb mb0 mb1 rb rb0 rb1';
     padding: 40px;
     z-index: 2;
+    margin: 0 auto;
 
     @media (max-width: 1200px) {
         display: flex;
