@@ -39,10 +39,10 @@ const Grid = styled.div`
     }
 `
 
-const MyWork = () => {
+const MyWork = (props) => {
   return (
     <Container>
-        <Card>
+        <Card image="">
             <NavBar index="2"/>
             <Grid>
             <WorkItem 

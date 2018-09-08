@@ -17,7 +17,7 @@ export const Card = styled.div`
     background-color: white;
     padding: 35px 60px 0 60px;
     border-radius: 8px;
-    background-image: url(${props => props.image}), linear-gradient(-45deg, #434343 0%, #252525 100%);
+    background-image: url(${props => props.image.normal}), linear-gradient(-45deg, ${props => props.theme.gradient.from} 0%, ${props => props.theme.gradient.to} 100%);
     background-position: ${props => props.center ? "bottom right" : "bottom center"};
     background-repeat: no-repeat;
     overflow: hidden;
@@ -33,7 +33,7 @@ export const Card = styled.div`
         box-sizing: border-box;
         padding: 25px 30px 0 30px;
         border-radius: 0px;
-        background-image: url(${props => props.mobile}), linear-gradient(-45deg, #434343 0%, #252525 100%);
+        background-image: url(${props => props.image.mobile}), linear-gradient(-45deg, ${props => props.theme.gradient.from} 0%, ${props => props.theme.gradient.to} 100%);
         background-size: 135%;
     }
 
@@ -43,11 +43,10 @@ export const Button = styled(Link)`
     width: 150px;
     text-align: center;
     margin-top: 30px;
-    background-color: #786EBC;
+    background-color: ${props => props.theme.textDark};
     padding: 10px 0;
     border-radius: 5px;
-    color: #D0C9FF;
-    cursor: pointer;
+    color: #FFF;
     transition: opacity .25s;
     text-decoration: none;
 

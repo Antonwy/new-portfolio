@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
+import styled, {ThemeProvider} from 'styled-components'
 import { Link } from 'react-router-dom'
-import Hamburger from '../Assets/hamburger_dark.svg';
-import Close from '../Assets/close_dark.svg'
+import Hamburger from '../Assets/Dark/hamburger_dark.svg';
+import Close from '../Assets/Dark/close_dark.svg'
 import { SMALL } from '../ScreenSizes';
 
 const Logo = styled.h1`
-    color: white;
     font-size: 1.5em;
     position: relative;
     font-weight: bold;
     padding-bottom: 5px;
     float: left;
+    color: ${props => props.theme.textNormal};
 
     &:before {
         content: " ";
@@ -21,7 +21,7 @@ const Logo = styled.h1`
         width: 60px;
         height: 3px;
         border-radius: 20px;
-        background-color: #786EBC;
+        background-color: ${props => props.theme.textDark};;
     }
 `
 
@@ -30,6 +30,7 @@ const List = styled.ul`
     transition: opacity 500ms;
     visibility: visible;
     opacity: 1;
+    color: ${props => props.theme.textNormal};
 
     @media (min-width: ${SMALL}px) {
         visibility: visible;
@@ -39,7 +40,7 @@ const List = styled.ul`
 
     @media (max-width: ${SMALL}px) {
         position: absolute; 
-        background-image: linear-gradient(-45deg, #434343 0%, #252525 100%);
+        background-image: linear-gradient(-45deg, ${props => props.theme.gradient.from} 0%, ${props => props.theme.gradient.to} 100%);
         top: 0;
         left: 0;
         width: 100%;
@@ -57,7 +58,6 @@ const List = styled.ul`
 
 const ListItem = styled.li`
     float: right;
-    color: white;
     cursor: pointer;
     margin-left: 40px;
     text-decoration: none;
@@ -71,7 +71,7 @@ const ListItem = styled.li`
         margin-top: 10px;
         width: ${props => props.index ? "100%" : "0%"};
         height: 3px;
-        background-color: #786EBC;
+        background-color: ${props => props.theme.textDark};
         transition: width 500ms;
     }
 
@@ -80,7 +80,6 @@ const ListItem = styled.li`
         margin: auto;
         text-align: center;
         margin: 20px 0;
-        color: #D0C9FF;
         font-size: 1.25em;
         font-weight: bolder;
         text-transform: uppercase;
@@ -95,6 +94,7 @@ const ListItem = styled.li`
 
 const StyleLink = styled(Link)`
     text-decoration: none;
+    color: inherit;
 `
 
 const CloseBtn = styled.div`
@@ -104,7 +104,7 @@ const CloseBtn = styled.div`
     right: 0;
     width: 20px;
     height: 20px;
-    background-image: url(${Close});
+    background-image: url(${props => props.theme.images.navBar.close});
     margin-top: 35px;
     margin-right: 35px;
     cursor: pointer;
@@ -115,7 +115,7 @@ const Menu = styled.div`
     width: 30px;
     height: 20px;
     margin-top: 10px;
-    background-image: url(${Hamburger});
+    background-image: url(${props => props.theme.images.navBar.hamburger});
     background-repeat: no-repeat;
     float: right;
     cursor: pointer;
@@ -163,7 +163,7 @@ export default class NavBar extends Component {
     }
 
   render() {
-      const { index } = this.props;
+      const { index, theme } = this.props;
       const { hideMenu } = this.state;
     return (
       <div>

@@ -12,7 +12,7 @@ import Facebook from '../Assets/facebookIcon.svg'
 import { SMALL } from '../ScreenSizes';
 
 const Rect = styled.div`
-    background-image: linear-gradient(-45deg, #33249D 0%, #8650FF 100%);
+    background-image: linear-gradient(-45deg, ${props => props.theme.contactGradient.from} 0%, ${props => props.theme.contactGradient.to} 100%);
     width: 400px;
     height: 400px;
     transform: rotate(-45deg);
@@ -65,10 +65,10 @@ const P = styled.a`
     cursor: pointer;
 `
 
-const Contact = () => {
+const Contact = (props) => {
   return (
     <Container>
-      <Card>
+      <Card image="">
         <NavBar index="3" />
         <Center>
             <Rect>

@@ -1,7 +1,5 @@
 import React from 'react'
 import { Container, Card } from './GlobalStyles'
-import HomeStyle from '../Assets/about_me_style_dark.svg'
-import HomeStyleMobile from '../Assets/about_me_style_dark_mobile.svg'
 import NavBar from './NavBar'
 import styled from 'styled-components'
 import { SMALL } from '../ScreenSizes';
@@ -17,7 +15,8 @@ const Content = styled.div`
 `
 
 const Header = styled.h1`
-    color: #D0C9FF;
+    color: white;
+    text-shadow: 0 2px 6px rgba(0,0,0,.5);
     margin-bottom: 30px;
 `
 
@@ -26,6 +25,7 @@ const Text = styled.p`
     max-width: 400px;
     width: 90%;
     text-align: center;
+    text-shadow: 0 2px 6px rgba(0,0,0,.5);
 
     @media (max-width: 350px) {
         font-size: .75em;
@@ -40,7 +40,7 @@ const Background = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url(${HomeStyle});
+    background-image: url(${props => props.theme.images.about.normal});
     background-repeat: no-repeat;
     background-position: bottom center;
     background-size: 100%;
@@ -51,11 +51,11 @@ const Background = styled.div`
 
     @media (max-width: ${SMALL}px) {
         background-size: 120%;
-        background-image: url(${HomeStyleMobile});
+        background-image: url(${props => props.theme.images.about.mobile});
     }
 `
 
-const AboutMe = () => {
+const AboutMe = (props) => {
   return (
     <Container>
       <Card image="" center>
