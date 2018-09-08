@@ -30,13 +30,11 @@ export const Card = styled.div`
     @media (max-width: ${SMALL}px) {
         width: 100%;
         height: 100%;
-        padding: 35px 20px 0 20px;
+        box-sizing: border-box;
+        padding: 25px 30px 0 30px;
         border-radius: 0px;
-        background-image: url(${props => props.image}), linear-gradient(-45deg, #434343 0%, #252525 100%);
-        background-position: ${props => props.center ? "bottom right" : "bottom center"};
-        background-repeat: no-repeat;
-        overflow: hidden;
-        background-size: 100%;
+        background-image: url(${props => props.mobile}), linear-gradient(-45deg, #434343 0%, #252525 100%);
+        background-size: 135%;
     }
 
 `
@@ -55,5 +53,10 @@ export const Button = styled(Link)`
 
     &:hover {
         opacity: .75;
+    }
+
+    @media (max-width: ${SMALL}px) {
+        margin: 20px auto;
+        box-shadow: 0 3px 10px rgba(0,0,0,.15);
     }
 `

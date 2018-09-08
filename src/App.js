@@ -5,6 +5,7 @@ import AboutMe from './Components/AboutMe';
 import { AnimatedSwitch } from 'react-router-transition';
 import MyWork from './Components/MyWork';
 import Contact from './Components/Contact';
+import { SMALL } from './ScreenSizes';
 
 
 class App extends Component {
@@ -12,8 +13,8 @@ class App extends Component {
     return (
       <div style={{width: "100%", height:"100%"}}>
         <AnimatedSwitch
-          atEnter={{ opacity: 0 }}
-          atLeave={{ opacity: 0 }}
+          atEnter={window.innerWidth > SMALL ? { opacity: 0 } : { opacity: 1 }}
+          atLeave={window.innerWidth > SMALL ? { opacity: 0 } : { opacity: 1 }}
           atActive={{ opacity: 1 }}
           className="switch-wrapper"
         >

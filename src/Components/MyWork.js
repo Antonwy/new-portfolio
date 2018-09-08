@@ -10,19 +10,32 @@ const Grid = styled.div`
     height: 100%;
     display: grid;
     grid-template-areas:
-    'lt lt0 lt1 mt mt0 mt1 rt rt0 rt1'
-    'lm lm0 lm1 mm mm0 mm1 rm rm0 rm1'
-    'lb lb0 lb1 mb mb0 mb1 rb rb0 rb1';
+    'lt mt mt0 rt'
+    'lm mm mm0 rm'
+    'lb mb mb0 rb';
     padding: 40px;
     z-index: 2;
 
-    @media (max-width: ${SMALL}px) {
+    @media (max-width: 1200px) {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        flex-grow: space-between;
         padding: 0px;
         margin-top: 20px;
+        overflow: auto;
     }
 
+    @media (max-width: ${SMALL}px) {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0px;
+        margin-top: 20px;
+        overflow: auto;
+    }
 `
 
 const MyWork = () => {
@@ -34,35 +47,35 @@ const MyWork = () => {
                 <WorkItem 
                     size={12} 
                     color={{from: "#4040F4", to: "#713FFA"}} 
-                    gridArea="lt0" 
+                    gridArea="lt" 
                     title="FoodAssistant"
                     url="http://159.69.117.200/#/dashboard"
                     />
                 <WorkItem 
                     size={11} 
                     color={{from: "#3FC8FA", to: "#4040F4"}} 
-                    gridArea="mm" 
+                    gridArea="rt" 
                     title="TodoList"
                     url="https://antonwy.github.io/todo-list/"
                     />
                 <WorkItem 
                     size={13} 
                     color={{from: "#40AFF4", to: "#3FFA87"}} 
-                    gridArea="rt" 
+                    gridArea="mt0" 
                     title="Portfolio1"
                     url="https://antonwy.github.io/portfolio_website/"
                     />
                 <WorkItem 
                     size={12} 
                     color={{from: "#8967E8", to: "#612DB5"}} 
-                    gridArea="rm0" 
+                    gridArea="mm" 
                     title="Portfolio2"
                     url="https://antonwy.github.io/my_portfolio/"
                     />
                 <WorkItem 
                     size={16} 
                     color={{from: "#F44040", to: "#713FFA"}} 
-                    gridArea="lm" 
+                    gridArea="lb" 
                     title="Apps"
                     url="http://antonwy.bplaced.net/#"
                     />
@@ -76,7 +89,7 @@ const MyWork = () => {
                 <WorkItem 
                     size={14} 
                     color={{from: "#F4AF40", to: "#F4D15C"}} 
-                    gridArea="lb0" 
+                    gridArea="mb0" 
                     title="Weather"
                     url=""
                     />

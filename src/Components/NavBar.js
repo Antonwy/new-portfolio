@@ -28,10 +28,18 @@ const Logo = styled.h1`
 const List = styled.ul`
     list-style: none;
     transition: opacity 500ms;
+    visibility: visible;
+    opacity: 1;
+
+    @media (min-width: ${SMALL}px) {
+        visibility: visible;
+        opacity: 1;
+        background: red;
+    }
 
     @media (max-width: ${SMALL}px) {
         position: absolute; 
-        background-color: black;
+        background-image: linear-gradient(-45deg, #434343 0%, #252525 100%);
         top: 0;
         left: 0;
         width: 100%;
@@ -42,8 +50,8 @@ const List = styled.ul`
         justify-content: center;
         align-items: center;
         flex-direction: column-reverse;
-        visibility: ${props => props.hidden ? "visible" : "hidden"};
-        ${'' /*     opacity: ${props => props.hidden ? "0" : "1"}; */}
+        visibility: ${props => props.hidden ? "hidden" : "visible"};
+        opacity: ${props => props.hidden ? "0" : "1"};
     }
 `
 
@@ -52,19 +60,36 @@ const ListItem = styled.li`
     color: white;
     cursor: pointer;
     margin-left: 40px;
-    transition: border-bottom 250ms;
     text-decoration: none;
-    border-bottom: ${props => props.index ? "3px #786EBC solid" : "border-bottom: 3px transparent solid"};
+    position: relative;
+
+    &:before {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        margin-top: 10px;
+        width: ${props => props.index ? "100%" : "0%"};
+        height: 3px;
+        background-color: #786EBC;
+        transition: width 500ms;
+    }
 
     @media (max-width: ${SMALL}px) {
         float: none;
         margin: auto;
         text-align: center;
         margin: 20px 0;
+        color: #D0C9FF;
+        font-size: 1.25em;
+        font-weight: bolder;
+        text-transform: uppercase;
     }
 
     &:hover {
-        border-bottom: 3px #786EBC solid;
+      &:before {
+          width: 100%;
+      }  
     }
 `
 
@@ -80,10 +105,10 @@ const CloseBtn = styled.div`
     width: 20px;
     height: 20px;
     background-image: url(${Close});
-    margin-top: 20px;
-    margin-right: 20px;
+    margin-top: 35px;
+    margin-right: 35px;
     cursor: pointer;
-    display: ${props => props.hidden ? "block" : "none"}
+    visibility: ${props => props.hidden ? "hidden" : "visible"}
 `
 
 const Menu = styled.div`
@@ -104,29 +129,51 @@ const Menu = styled.div`
 
 export default class NavBar extends Component {
 
-    state = {
-        showMenu: false
+    constructor(props){
+        super(props);
+        this.state = { hideMenu: window.innerWidth > SMALL ? false : true };
+    }
+   
+
+    toggleMenu = (index, visible) => () => {
+        if(this.props.index == index && index || window.innerWidth > SMALL) return;
+        this.setState(state => ({
+            hideMenu: !state.hideMenu
+        }));
     }
 
-    toggleMenu = (index) => () => {
-        if(this.props.index == index && index) return;
-        this.setState(state => ({
-            showMenu: !state.showMenu
-        }));
+    updateScreenSize = () => {
+        if(window.innerWidth > SMALL && this.state.hideMenu){
+            this.setState({
+                hideMenu: false
+            })
+        }else if(window.innerWidth < SMALL && !this.state.hideMenu){
+            this.setState({
+                hideMenu: true
+            })
+        }
+    } 
+
+    componentDidMount() {
+        window.addEventListener('resize', this.updateScreenSize);
+    }
+
+    componentWillUnmount(){
+        window.removeEventListener('resize', this.updateScreenSize);
     }
 
   render() {
       const { index } = this.props;
-      const { showMenu } = this.state;
+      const { hideMenu } = this.state;
     return (
       <div>
         <Logo>ANTONWY</Logo>
-        <List hidden={showMenu}>
-            <CloseBtn onClick={this.toggleMenu()} hidden={showMenu} />
-            <StyleLink to="/contact" onClick={this.toggleMenu(3)}><ListItem index={index == 3 ? true : false}>Contact</ListItem></StyleLink>
-            <StyleLink to="/myWork" onClick={this.toggleMenu(2)}><ListItem index={index == 2 ? true : false}>My work</ListItem></StyleLink>
-            <StyleLink to="/aboutMe" onClick={this.toggleMenu(1)}><ListItem index={index == 1 ? true : false}>About me</ListItem></StyleLink>
-            <StyleLink to="/" onClick={this.toggleMenu(0)}><ListItem index={index == 0 ? true : false}>Home</ListItem></StyleLink>
+        <List hidden={hideMenu}>
+            <CloseBtn onClick={this.toggleMenu()} hidden={hideMenu} />
+            <StyleLink to="/contact" ><ListItem index={index == 3 ? true : false} onClick={this.toggleMenu(3, false)}>Contact</ListItem></StyleLink>
+            <StyleLink to="/myWork" ><ListItem index={index == 2 ? true : false} onClick={this.toggleMenu(2, false)}>My work</ListItem></StyleLink>
+            <StyleLink to="/aboutMe" ><ListItem index={index == 1 ? true : false} onClick={this.toggleMenu(1, false)}>About me</ListItem></StyleLink>
+            <StyleLink to="/" ><ListItem index={index == 0 ? true : false} onClick={this.toggleMenu(0, false)}>Home</ListItem></StyleLink>
         </List>
         <Menu onClick={this.toggleMenu()}/>
       </div>

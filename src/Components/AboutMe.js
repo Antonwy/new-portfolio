@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Card } from './GlobalStyles'
 import HomeStyle from '../Assets/about_me_style_dark.svg'
+import HomeStyleMobile from '../Assets/about_me_style_dark_mobile.svg'
 import NavBar from './NavBar'
 import styled from 'styled-components'
 import { SMALL } from '../ScreenSizes';
@@ -25,6 +26,14 @@ const Text = styled.p`
     max-width: 400px;
     width: 90%;
     text-align: center;
+
+    @media (max-width: 350px) {
+        font-size: .75em;
+    }
+
+    @media (max-width: ${SMALL}px) {
+        font-size: .9em;
+    }
 `
 
 const Background = styled.div`
@@ -38,9 +47,11 @@ const Background = styled.div`
     top: 0;
     left: 0;
     z-index: -5;
+    
 
     @media (max-width: ${SMALL}px) {
-        background-size: 250%;
+        background-size: 120%;
+        background-image: url(${HomeStyleMobile});
     }
 `
 

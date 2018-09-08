@@ -15,13 +15,27 @@ const Rect = styled.div`
     background-image: linear-gradient(-45deg, #33249D 0%, #8650FF 100%);
     width: 400px;
     height: 400px;
-    transform: rotate(45deg);
+    transform: rotate(-45deg);
     display: flex;
     justify-content: center;
 
     @media (max-width: ${SMALL}px) {
-        width: 400px;
+        position: absolute;
+        width: 105vw;
         height: 400px;
+        transform: rotate(-10deg) skew(-10deg);
+    }
+`
+
+const Content = styled.div`
+    transform: rotate(45deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: ${SMALL}px) {
+        transform: skew(10deg) rotate(10deg);
     }
 `
 
@@ -58,7 +72,7 @@ const Contact = () => {
         <NavBar index="3" />
         <Center>
             <Rect>
-                <div style={{display: "flex", flexDirection: 'column', justifyContent: 'center', alignItems: 'center', transform: 'rotate(-45deg)'}}>
+                <Content>
                     <Header>Contact</Header>
                     <ListItem>
                         <img width="30" src={Github}/>
@@ -81,7 +95,7 @@ const Contact = () => {
                         <img width="30" src={Insta}/>
                         <P>antonwy</P>
                     </ListItem>
-                </div>
+                </Content>
             </Rect>
         </Center>
       </Card>

@@ -8,8 +8,6 @@ import { SMALL } from '../ScreenSizes';
 const Bubble = styled.div`
     width: ${props => `${props.size}vw`};
     height: ${props => `${props.size}vw`};
-    max-width: 200px;
-    max-height: 200px;
     border-radius: 50%;
     background-image: ${props => `linear-gradient(-45deg, ${props.color.from} 0%, ${props.color.to} 100%)`};
     position: relative;
@@ -34,13 +32,13 @@ const Bubble = styled.div`
         opacity: .2;
     }
 
-    @media (max-width: ${SMALL}px) {
-        width: 100%;
-        height: 50px;
+     @media (max-width: 1200px) {
+        width: 48%;
+        height: 70px;
+        min-height: 50px;
         border-radius: 5px;
         background-color: red;
         grid-area: none;
-        max-width: unset;
         flex-direction: row;
         justify-content: start;
         margin: 10px 0;
@@ -49,6 +47,23 @@ const Bubble = styled.div`
             display: none;
         }
     }
+
+    @media (max-width: ${SMALL}px) {
+        width: 100%;
+        height: 70px;
+        min-height: 50px;
+        border-radius: 5px;
+        background-color: red;
+        grid-area: none;
+        flex-direction: row;
+        justify-content: start;
+        margin: 10px 0;
+
+        &:before {
+            display: none;
+        }
+    }
+
 `
 
 const Title = styled.h1`
@@ -56,8 +71,9 @@ const Title = styled.h1`
     font-size: 17px;
     font-weight: bold;
 
-    @media (max-width: ${SMALL}px) {
+    @media (max-width: 1200px) {
         margin-left: 10px;
+        font-size: .75em;
     }
 
 `
@@ -86,7 +102,7 @@ const Container = styled.div`
     margin-top: 10px;
     display: flex;
 
-    @media (max-width: ${SMALL}px) {
+    @media (max-width: 1200px) {
         margin-top: 0;
         margin-left: auto;
         margin-right: 10px;
