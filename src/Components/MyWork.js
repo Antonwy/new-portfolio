@@ -6,8 +6,8 @@ import styled from 'styled-components'
 import { SMALL } from '../ScreenSizes';
 
 const Grid = styled.div`
-    width: calc(100% - 120px);
-    height: calc(100% - 35px);
+    width: 100%;
+    height: 80%;
     display: grid;
     grid-template-areas:
     'lt lt0 lt1 mt mt0 mt1 rt rt0 rt1'
@@ -53,14 +53,14 @@ const MyWork = () => {
                     url="http://159.69.117.200/#/dashboard"
                     />
                 <WorkItem 
-                    size={11} 
+                    size={13} 
                     color={{from: "#3FC8FA", to: "#4040F4"}} 
                     gridArea="mm" 
                     title="TodoList"
                     url="https://antonwy.github.io/todo-list/"
                     />
                 <WorkItem 
-                    size={13} 
+                    size={11} 
                     color={{from: "#40AFF4", to: "#3FFA87"}} 
                     gridArea="rt" 
                     title="Portfolio1"
@@ -74,21 +74,21 @@ const MyWork = () => {
                     url="https://antonwy.github.io/my_portfolio/"
                     />
                 <WorkItem 
-                    size={16} 
+                    size={10} 
                     color={{from: "#F44040", to: "#713FFA"}} 
                     gridArea="lm" 
                     title="Apps"
                     url="http://antonwy.bplaced.net/#"
                     />
                 <WorkItem 
-                    size={13} 
+                    size={11} 
                     color={{from: "#B9FA3F", to: "#5AD0A7"}} 
                     gridArea="rb" 
                     title="Takis"
                     url="https://antonwy.github.io/takis_web/"
                     />
                 <WorkItem 
-                    size={14} 
+                    size={10} 
                     color={{from: "#F4AF40", to: "#F4D15C"}} 
                     gridArea="lb0" 
                     title="Weather"

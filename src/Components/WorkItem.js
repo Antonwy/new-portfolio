@@ -22,8 +22,6 @@ const Bubble = styled.div`
         position: absolute;
         left: -.5vw;
         top: -.5vw;
-        max-width: calc(200px + 1vw);
-        max-height: calc(200px + 1vw);
         width: ${props => `${props.size + 1}vw`};
         height: ${props => `${props.size + 1}vw`};
         border-radius: 50%;
