@@ -45,7 +45,7 @@ const MyWork = (props) => {
         <Card image="">
             <NavBar index="2"/>
             <Grid>
-            <WorkItem 
+                <WorkItem 
                     size={12} 
                     color={{from: "#4040F4", to: "#713FFA"}} 
                     gridArea="lt0" 

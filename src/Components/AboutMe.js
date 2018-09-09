@@ -43,15 +43,23 @@ const Background = styled.div`
     background-image: url(${props => props.theme.images.about.normal});
     background-repeat: no-repeat;
     background-position: bottom center;
-    background-size: 100%;
-    top: 0;
+    background-size: 1200px;
+    bottom: 0;
     left: 0;
     z-index: -5;
     
+    @media (min-height: 1200px) {
+        background-size: 200%;
+    }
 
     @media (max-width: ${SMALL}px) {
-        background-size: 120%;
+        background-size: 100%;
+        background-position-y: -100%;
         background-image: url(${props => props.theme.images.about.mobile});
+    }
+
+    @media (max-width: 600px) {
+        background-position-y: 100%;
     }
 `
 
