@@ -111,14 +111,20 @@ const openLink = (url) => () => {
     window.open(url, '_blank');
 }
   
+const generateLink = (url) => () => {
+    let name = url.replace("https://antonwy.github.io/", "");
+    let finalURL = `https://github.com/Antonwy/${name}`;
+    console.log(finalURL);
+    window.open(finalURL, '_blank');
+}
 
-const WorkItem = ({ size, color, gridArea, title, url }) => {
+const WorkItem = ({ size, color, gridArea, title, url, github }) => {
   return (
     <Bubble size={size} color={color} gridArea={gridArea}>
         <Title>{title}</Title>
         <Container>
             <Button color={color}><img width="20" src={Open} onClick={openLink(url)}></img></Button>
-            <Button style={{ marginLeft: "10px" }} color={color} icon={Github}><img width="20" src={Github}></img></Button>
+            { github ? <Button style={{ marginLeft: "10px" }} color={color} icon={Github}><img width="20" src={Github} onClick={generateLink(url)}></img></Button> : <div></div> }
         </Container>
     </Bubble>
   )

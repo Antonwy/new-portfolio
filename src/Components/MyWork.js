@@ -54,27 +54,6 @@ const MyWork = (props) => {
                     url="http://159.69.117.200/#/dashboard"
                     />
                 <WorkItem 
-                    size={13} 
-                    color={{from: "#3FC8FA", to: "#4040F4"}} 
-                    gridArea="mm" 
-                    title="TodoList"
-                    url="https://antonwy.github.io/todo-list/"
-                    />
-                <WorkItem 
-                    size={11} 
-                    color={{from: "#40AFF4", to: "#3FFA87"}} 
-                    gridArea="rt" 
-                    title="Portfolio1"
-                    url="https://antonwy.github.io/portfolio_website/"
-                    />
-                <WorkItem 
-                    size={12} 
-                    color={{from: "#8967E8", to: "#612DB5"}} 
-                    gridArea="rm0" 
-                    title="Portfolio2"
-                    url="https://antonwy.github.io/my_portfolio/"
-                    />
-                <WorkItem 
                     size={10} 
                     color={{from: "#F44040", to: "#713FFA"}} 
                     gridArea="lm" 
@@ -82,18 +61,44 @@ const MyWork = (props) => {
                     url="http://antonwy.bplaced.net/#"
                     />
                 <WorkItem 
+                    size={13} 
+                    color={{from: "#3FC8FA", to: "#4040F4"}} 
+                    gridArea="mm" 
+                    title="TodoList"
+                    url="https://antonwy.github.io/todo-list/"
+                    github
+                    />
+                <WorkItem 
+                    size={11} 
+                    color={{from: "#40AFF4", to: "#3FFA87"}} 
+                    gridArea="rt" 
+                    title="Portfolio1"
+                    url="https://antonwy.github.io/portfolio_website/"
+                    github
+                    />
+                <WorkItem 
+                    size={12} 
+                    color={{from: "#8967E8", to: "#612DB5"}} 
+                    gridArea="rm0" 
+                    title="Portfolio2"
+                    url="https://antonwy.github.io/my_portfolio/"
+                    github
+                    />
+                <WorkItem 
                     size={11} 
                     color={{from: "#B9FA3F", to: "#5AD0A7"}} 
                     gridArea="rb" 
                     title="Takis"
                     url="https://antonwy.github.io/takis_web/"
+                    github
                     />
                 <WorkItem 
                     size={10} 
                     color={{from: "#F4AF40", to: "#F4D15C"}} 
                     gridArea="lb0" 
                     title="Weather"
-                    url=""
+                    url="https://antonwy.github.io/weather-forecast/"
+                    github
                     />
             </Grid>
             
