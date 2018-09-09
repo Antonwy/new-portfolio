@@ -29,6 +29,7 @@ const Grid = styled.div`
     }
 
     @media (max-width: ${SMALL}px) {
+        height: 100%;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
