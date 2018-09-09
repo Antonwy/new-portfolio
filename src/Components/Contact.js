@@ -65,6 +65,15 @@ const P = styled.a`
     cursor: pointer;
 `
 
+const openLink = (url) => () => {
+    if(url.charAt(0) !== "h"){
+        window.location = `mailto:${url}`;
+    }else{
+        window.open(url, '_blank');
+    }
+    
+}
+
 const Contact = (props) => {
   return (
     <Container>
@@ -74,24 +83,24 @@ const Contact = (props) => {
             <Rect>
                 <Content>
                     <Header>Contact</Header>
-                    <ListItem>
+                    <ListItem onClick={openLink('https://github.com/Antonwy')}>
                         <img width="30" src={Github}/>
                         <P>Antonwy</P>
                     </ListItem>
-                    <ListItem>
+                    <ListItem onClick={openLink('anton.wyrowski@gmail.com')}>
                         <img width="30" src={Gmail}/>
                         <P>anton.wyrowski@gmail.com</P>
                     </ListItem>
 
-                    <ListItem>
+                    <ListItem onClick={openLink('https://www.facebook.com/anton.deutschland')}>
                         <img width="30" src={Facebook}/>
                         <P>Anton Wyrowski</P>
                     </ListItem>
-                    <ListItem>
+                    <ListItem onClick={openLink('https://twitter.com/antonwyro')}>
                         <img width="30" src={Twitter}/>
                         <P>antonwyro</P>
                     </ListItem>
-                    <ListItem>
+                    <ListItem onClick={openLink('https://www.instagram.com/antonwyr/')}>
                         <img width="30" src={Insta}/>
                         <P>antonwy</P>
                     </ListItem>
