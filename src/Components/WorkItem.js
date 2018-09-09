@@ -71,7 +71,7 @@ const Title = styled.h1`
 
     @media (max-width: 1200px) {
         margin-left: 10px;
-        font-size: .75em;
+        font-size: 1em;
     }
 
 `
@@ -88,11 +88,11 @@ const Button = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 3px 6px rgba(0,0,0,.16);
-    transition: box-shadow .5s;
+    transition: box-shadow .5s, transform .5s;
 
     &:hover {
-        box-shadow: 0 0px 0px rgba(0,0,0,.16);
+        transform: scale(1.1);
+        box-shadow: 0 3px 6px rgba(0,0,0,.16);
     }
 `
 

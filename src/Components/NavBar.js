@@ -108,7 +108,14 @@ const CloseBtn = styled.div`
     margin-top: 35px;
     margin-right: 35px;
     cursor: pointer;
-    visibility: ${props => props.hidden ? "hidden" : "visible"}
+
+    @media (min-width: ${SMALL}px) {
+        visibility: hidden;
+    }
+
+    @media (max-width: ${SMALL}px) {
+        visibility: ${props => props.hidden ? "hidden" : "visible"};
+    }
 `
 
 const Menu = styled.div`

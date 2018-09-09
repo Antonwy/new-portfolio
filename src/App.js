@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import Home from './Components/Home';
-import { Route } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 import AboutMe from './Components/AboutMe';
 import { AnimatedSwitch } from 'react-router-transition';
 import MyWork from './Components/MyWork';
 import Contact from './Components/Contact';
 import { SMALL } from './ScreenSizes';
 import { ThemeProvider } from 'styled-components';
+
+import throttle from 'lodash.throttle'
+import debounce from 'lodash.debounce'
 
 // IMAGES
 
@@ -87,10 +90,72 @@ const lightTheme = {
   }
 }
 
+const pages =[
+  "/",
+  "/aboutMe",
+  "/myWork",
+  "/contact"
+]
+
+let currentPage = 0;
+let scroll = true;
+
 class App extends Component {
 
   state = {
     theme: darkTheme
+  }
+
+  componentDidMount(){
+    //window.addEventListener('wheel', throttle(this.handleScroll, 2000));
+    window.addEventListener('wheel', this.throttleFunction);
+  }
+
+  componentWillUnmount(){
+    //window.removeEventListener('wheel', throttle(this.handleScroll, 2000));
+    window.removeEventListener('wheel', this.throttleFunction);
+  }
+
+  throttleFunction = (event) => {
+    const isChrome = !!window.chrome && !!window.chrome.webstore; 
+    const isFirefox = typeof InstallTrigger !== 'undefined';
+    if(isChrome || isFirefox && event.deltaY > 40 || event.deltaY < -40){
+      this.handleScroll(event);
+    }else if(!isChrome && !isFirefox){
+      this.handleScroll(event);
+    }
+  }
+
+  handleScroll = (event) => {  
+      if(scroll){
+        switch (this.props.location.pathname) {
+          case '/':
+            currentPage = 0;
+            break;
+          case 'aboutMe': 
+            currentPage = 1;
+            break;
+          case 'myWork': 
+            currentPage = 2;
+            break;
+          case 'contact': 
+            currentPage = 3;
+            break;
+        }
+        scroll = false;
+
+        if(event.deltaY > 0 && currentPage < pages.length){
+          currentPage++;
+        }else if(event.deltaY < 0 && currentPage > 0){
+          currentPage--;
+        }
+        this.props.history.push(pages[currentPage]);
+
+        setTimeout(() => {
+          scroll = true;
+        }, 500);
+      }
+      
   }
 
   changeTheme = (tf) => {
@@ -109,7 +174,7 @@ class App extends Component {
     const { theme } = this.state;
     document.querySelector('body').style.backgroundImage = `linear-gradient(45deg, ${theme.gradient.from} 0%, ${theme.gradient.to} 100%)`
     return (
-      <ThemeProvider style={{width: "100%", height:"100%"}} theme={this.state.theme}>
+      <ThemeProvider style={{width: "100%", height:"100%"}} theme={this.state.theme} onScroll={this.handleScroll}>
         <AnimatedSwitch
           atEnter={window.innerWidth > SMALL ? { opacity: 0 } : { opacity: 1 }}
           atLeave={window.innerWidth > SMALL ? { opacity: 0 } : { opacity: 1 }}
@@ -126,4 +191,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

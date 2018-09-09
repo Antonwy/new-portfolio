@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "http://antonwy.github.io/new-portfolio",
   "dependencies": {
+    "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-router-dom": "^4.3.1",
