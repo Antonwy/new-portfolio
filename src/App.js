@@ -90,15 +90,15 @@ const lightTheme = {
   }
 }
 
-const pages =[
-  "/",
-  "/aboutMe",
-  "/myWork",
-  "/contact"
-]
+// const pages =[
+//   "/",
+//   "/aboutMe",
+//   "/myWork",
+//   "/contact"
+// ]
 
-let currentPage = 0;
-let scroll = true;
+// let currentPage = 0;
+// let scroll = true;
 
 class App extends Component {
 
@@ -106,57 +106,57 @@ class App extends Component {
     theme: darkTheme
   }
 
-  componentDidMount(){
-    //window.addEventListener('wheel', throttle(this.handleScroll, 2000));
-    window.addEventListener('wheel', this.throttleFunction);
-  }
+  // componentDidMount(){
+  //   //window.addEventListener('wheel', throttle(this.handleScroll, 2000));
+  //   window.addEventListener('wheel', this.throttleFunction);
+  // }
 
-  componentWillUnmount(){
-    //window.removeEventListener('wheel', throttle(this.handleScroll, 2000));
-    window.removeEventListener('wheel', this.throttleFunction);
-  }
+  // componentWillUnmount(){
+  //   //window.removeEventListener('wheel', throttle(this.handleScroll, 2000));
+  //   window.removeEventListener('wheel', this.throttleFunction);
+  // }
 
-  throttleFunction = (event) => {
-    const isChrome = !!window.chrome && !!window.chrome.webstore; 
-    const isFirefox = typeof InstallTrigger !== 'undefined';
-    if(isChrome || isFirefox && event.deltaY > 40 || event.deltaY < -40){
-      this.handleScroll(event);
-    }else if(!isChrome && !isFirefox){
-      this.handleScroll(event);
-    }
-  }
+  // throttleFunction = (event) => {
+  //   const isChrome = !!window.chrome && !!window.chrome.webstore; 
+  //   const isFirefox = typeof InstallTrigger !== 'undefined';
+  //   if(isChrome || isFirefox && event.deltaY > 40 || event.deltaY < -40){
+  //     this.handleScroll(event);
+  //   }else if(!isChrome && !isFirefox){
+  //     this.handleScroll(event);
+  //   }
+  // }
 
-  handleScroll = (event) => {  
-      if(scroll){
-        switch (this.props.location.pathname) {
-          case '/':
-            currentPage = 0;
-            break;
-          case 'aboutMe': 
-            currentPage = 1;
-            break;
-          case 'myWork': 
-            currentPage = 2;
-            break;
-          case 'contact': 
-            currentPage = 3;
-            break;
-        }
-        scroll = false;
+  // handleScroll = (event) => {  
+  //     if(scroll){
+  //       switch (this.props.location.pathname) {
+  //         case '/':
+  //           currentPage = 0;
+  //           break;
+  //         case 'aboutMe': 
+  //           currentPage = 1;
+  //           break;
+  //         case 'myWork': 
+  //           currentPage = 2;
+  //           break;
+  //         case 'contact': 
+  //           currentPage = 3;
+  //           break;
+  //       }
+  //       scroll = false;
 
-        if(event.deltaY > 0 && currentPage < pages.length){
-          currentPage++;
-        }else if(event.deltaY < 0 && currentPage > 0){
-          currentPage--;
-        }
-        this.props.history.push(pages[currentPage]);
+  //       if(event.deltaY > 0 && currentPage < pages.length){
+  //         currentPage++;
+  //       }else if(event.deltaY < 0 && currentPage > 0){
+  //         currentPage--;
+  //       }
+  //       this.props.history.push(pages[currentPage]);
 
-        setTimeout(() => {
-          scroll = true;
-        }, 500);
-      }
+  //       setTimeout(() => {
+  //         scroll = true;
+  //       }, 500);
+  //     }
       
-  }
+  // }
 
   changeTheme = (tf) => {
     this.setState({theme: tf ? darkTheme : lightTheme})
