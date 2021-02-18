@@ -2,12 +2,12 @@
   "name": "my-portfolio",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://antonwy.github.io/new-portfolio",
   "dependencies": {
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-pose": "^4.0.8",
     "react-router-dom": "^4.3.1",
     "react-router-transition": "^1.2.1",
     "react-scripts": "1.1.5",

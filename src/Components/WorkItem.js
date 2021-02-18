@@ -4,8 +4,23 @@ import styled from 'styled-components'
 import Github from '../Assets/githubIcon.svg'
 import Open from '../Assets/openIcon.svg'
 import { SMALL } from '../ScreenSizes';
+import posed from 'react-pose';
 
-const Bubble = styled.div`
+const AnimatedBubble = posed.div({
+    show: {
+        scale: 1,
+        transition: {duration: 500},
+        x: 0,
+        y: 0
+    },
+    hide: {
+        scale: 0,
+        // x: Math.random() * 200,
+        y: 300
+    }
+})
+
+const Bubble = styled(AnimatedBubble)`
     width: ${props => `${props.size}vw`};
     height: ${props => `${props.size}vw`};
     border-radius: 50%;
@@ -114,17 +129,19 @@ const openLink = (url) => () => {
 const generateLink = (url) => () => {
     let name = url.replace("https://antonwy.github.io/", "");
     let finalURL = `https://github.com/Antonwy/${name}`;
-    console.log(finalURL);
     window.open(finalURL, '_blank');
 }
 
 const WorkItem = ({ size, color, gridArea, title, url, github }) => {
+    console.log(typeof(github))
   return (
     <Bubble size={size} color={color} gridArea={gridArea}>
         <Title>{title}</Title>
         <Container>
             <Button color={color}><img width="20" src={Open} onClick={openLink(url)}></img></Button>
-            { github ? <Button style={{ marginLeft: "10px" }} color={color} icon={Github}><img width="20" src={Github} onClick={generateLink(url)}></img></Button> : <div></div> }
+            { github ? <Button style={{ marginLeft: "10px" }} color={color} icon={Github}><img width="20" src={Github} 
+                onClick={typeof(github) === "boolean" ? generateLink(url) : openLink(github)}
+                ></img></Button> : <div></div> }
         </Container>
     </Bubble>
   )

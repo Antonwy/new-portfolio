@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1640.583 876.918">
+  <defs>
+    <style>
+      .cls-1 {
+        opacity: 0.59;
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient-2);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="1" y1="1" x2="0.39" y2="0.392" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4739aa"/>
+      <stop offset="1" stop-color="#9486f8"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x2="0.392" y2="0.337" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="Gruppe_35" data-name="Gruppe 35" transform="translate(-141 -102.082)">
+    <path id="Pfad_15" data-name="Pfad 15" class="cls-1" d="M141,979,1781.583,102.082V979Z"/>
+    <path id="Pfad_14" data-name="Pfad 14" class="cls-2" d="M283.524,979,1781.583,215.488V979Z"/>
+  </g>
+</svg>

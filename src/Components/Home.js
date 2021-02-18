@@ -48,7 +48,11 @@ const ThemeButton = styled.div`
     text-align: center;
     cursor: pointer;
     margin-left: 10px;
-    transition: background 500ms;
+    transition: background 500ms, transform 250ms;
+
+    &:hover {
+        transform: scale(.85)
+    }
 `
 
 
@@ -72,7 +76,7 @@ export default class Home extends Component {
                 <NavBar index="0" />
                 <Header>HI I’M ANTON WYROWSKI</Header>
                 <SubHeader>I’m a german Software developer.</SubHeader>
-                <Button to="/aboutMe">Learn more</Button>
+                <Button to="/aboutMe">Learn More</Button>
                 <ThemeChooserContainer>
                     <ThemeButton onClick={this.changeTheme(false)} active={this.state.dark ? false : true}>Light</ThemeButton>
                     <ThemeButton onClick={this.changeTheme(true)} active={this.state.dark ? true : false}>Dark</ThemeButton>
