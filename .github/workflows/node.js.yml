@@ -7,25 +7,57 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    env:
+      SSH_PRIVATE_KEY: -----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEAtsPFv0px3Uy3LkXquon6439BRoSdh6bk5tBnFkRf7aOzR87q
+mL5ymdjV7Zxrrl+nl+3a8GB7uauIryMXlaM9RhR99DjH7EoNv/EZaqp81Az3sKq7
+nSMzBHPcPfN13MYrw8U8ajDw1x7ipEpIkP5MLtPSA1gCk2u/y9B+OB9wWvPwcvvG
+4vh81PaxBl4tk2yS9U2/ftPYs4NxYkMb38yTTf9WY2cVffYGBiZ5p4K/paLHnj77
+bYSB8AjRNlHwu2OCwU4teh3ko9UjkdgLGtwJRZgB6a64JzoXU/nbA0G/2+SxSO8Z
+euzYOV/GpRLKQyZyMlizkr91P/meLE1HN2HBeQIDAQABAoIBAHKz/ainpTy5iAG/
+majHLjGXTTVfx6o6QVDnHLup3/a6FauMnkmMxUnu/5xn3mEK4ZkFi7HvK9eEY31f
+bc7ZK3yPIdmjxT1z4JtFSqlaJIvFM7KqBKODUuKJgIFVCfSsXw03/Um8O3sXhDCN
++msdXlzJTfYRR1SUfEQDLyQz/wTlIUXgNtMZHfpKxMcBTaP3hzGIg3mUfWXipZ4p
+OOFpVm04z+kCkoR0tQG5F3R6Srns8rBqF0KZpzSCrDZM7SjHbmbaMMd1F1kc8Zzg
+GY6hQKmq9QxeWuk75N9GdbG8dzi21/qZSAZXvFtjR73bmdaCvlB8GFwJTOkxbVfE
+SnxAvM0CgYEA8KiKNFa2e6vLE4Dst4syljLJPX6qDf7oBdNoTnpY+cF6TGuYziTV
+qakIg9L2qD0r2bDX7Ti8IEqtSRsPUEdzyguGVc/+puzJyMPvYDA8NMPXrn15lC3g
+jG7pQrSVdoiEFqgf2bTXmVWexVRokSkRiaWggzIOG7UaOSLX/xXrissCgYEAwmpt
+zwyyba+6nJU1SIOkN8Tz+UIoHiE/PUVuVHWwTCModkxP/XmiD2hGrTrT+9jF0jpt
+Fq3SXBfUlZNO52VjIEg7+PC4y4P34A/Hhz372Bk9bivmBnsgwQSM0GWdHM93FLJw
+yiE3bgkrMtBXnqvAS0LbRlQ40nDfcO4JktclSEsCgYEA3WQPECsdYRQfk+es3QUf
+GnHKE9pskseHp6RedqOzKsBEw/zP7ASS0qt/+9WduBPePTukyMTCvGo2k+Ri6BVz
+fdGwWU0pFWMMFre5hSGaoWfxCMLBkAHMayS1TfpW7V6VNUqhUmQ9WwAbOal3MOM5
+EQnfahIoTHEEmL9nOXFu6JUCgYB+cnxjGy392zqzVvRl6oDnaOkJqHaxSgx4jGz6
+7+SvUHqjnnS0NuUpwjedudJgThgz6J5FDt7v2OwCMOIz7CRxvamL+v0mGPoiOAEd
+PDpNzfS/cDvW4URnZc80R7LNJz6bLoffX4VOwxXeodUrNSgHiz9U2bhvXsxlBd0i
+LV5pSwKBgEHAuuW3Eusdodp51XvBLCIADiNMOnBPAdGbaF9VfHSdHxB63/Z1D+ob
+YskbfxfSNyNdUmGw+SIovNT4TqRZbcM//UGfjot/i/Kll/K0MY51aKklyj0bYlu2
+Xmt4z7RhDgOExAdTL7qjeRfCGBNaGswsokaMHABuShCJm0HWAQi8
+-----END RSA PRIVATE KEY-----
+      REMOTE_HOST: antonwy.com
+      REMOTE_USER: root
+      SOURCE: $GITHUB_WORKSPACE/Portfolio/build
+      TARGET: /var/www/Portfolio/build/
+
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Install Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: '10.x'
-    - name: Install npm dependencies
-      run: npm install
-    - name: Run build task
-      run: npm run build
-    - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@v2.1.5
-      env:
+      - uses: actions/checkout@v1
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - name: Install npm dependencies
+        run: npm install
+      - name: Run build task
+        run: npm run build
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          ARGS: "-rltgoDzvO --delete"
-          SOURCE: "dist/"
+          ARGS: '-rltgoDzvO --delete'
+          SOURCE: 'dist/'
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
