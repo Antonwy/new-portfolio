@@ -20,7 +20,7 @@ const Header = styled.h1`
 
 const Text = styled.p`
   color: white;
-  max-width: 400px;
+  max-width: 600px;
   width: 90%;
 
   @media (max-width: 350px) {
@@ -59,6 +59,10 @@ const Background = styled.div`
   }
 `;
 
+const Link = styled.a`
+  color: ${(props) => props.theme.textDark};
+`;
+
 const AboutMe = (props) => {
   return (
     <Container>
@@ -68,13 +72,24 @@ const AboutMe = (props) => {
           <div>
             <Header>About me</Header>
             <Text>
-              Hi I’m Anton Wyrowski! I’m living in Germany and I’m 18 years old.
+              Hi I’m Anton Wyrowski!
               <br />
-              For 2 years I taught myself how to program and how to build
-              Websites and Mobile Apps.
+              I’m currently living in Munich, Germany to study Computer Science
+              at the Technical University of Munich.
               <br />
-              Currently I’m in my last year of school. After the school I intend
-              to study computer-science. Test Build
+              <br />
+              By now, I have programmed multiple Websites and Apps which you can
+              check out by clicking on 'My work'.
+              <br />
+              <br />
+              In addition to my studies, I also founded a startup with a friend,
+              which develops an app with which you can quickly and easily donate
+              to a wide variety of charities.
+              <br />
+              For more information click{' '}
+              <Link href="https://one-dollar-movement.com" target="_blank">
+                here
+              </Link>
             </Text>
           </div>
         </Content>
