@@ -74,7 +74,7 @@ const AboutMe = (props) => {
               Websites and Mobile Apps.
               <br />
               Currently I’m in my last year of school. After the school I intend
-              to study computer-science.
+              to study computer-science. Test Build
             </Text>
           </div>
         </Content>
