@@ -1,6 +1,6 @@
 {
   "name": "my-portfolio",
-  "homepage" : "http://antonwy.xyz/"
+  "homepage" : "https://antonwy.xyz/"
   "version": "0.1.0",
   "private": true,
   "dependencies": {
