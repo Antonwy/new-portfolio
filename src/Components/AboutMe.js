@@ -4,22 +4,26 @@ import NavBar from './NavBar';
 import styled from 'styled-components';
 import { SMALL } from '../ScreenSizes';
 
+import ANTON from '../Assets/anton.jpg';
+
 const Content = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
+  align-items: center;
+  flex-direction: row;
+  padding: 40px;
 `;
 
 const Header = styled.h1`
-  color: white;
+  color: ${(props) => props.theme.textColored};
+  font-size: 80px;
   margin-bottom: 30px;
 `;
 
 const Text = styled.p`
-  color: white;
+  color: ${(props) => props.theme.textNormal};
   max-width: 600px;
   width: 90%;
 
@@ -59,6 +63,17 @@ const Background = styled.div`
   }
 `;
 
+const Image = styled.div`
+  background-image: url(${ANTON});
+  width: 400px;
+  height: 400px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 12px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+`;
+
 const Link = styled.a`
   color: ${(props) => props.theme.textDark};
 `;
@@ -69,7 +84,8 @@ const AboutMe = (props) => {
       <Card image="" center>
         <NavBar index="1" />
         <Content>
-          <div>
+          <Image />
+          <div style={{ marginLeft: 40 }}>
             <Header>About me</Header>
             <Text>
               Hi I’m Anton Wyrowski!

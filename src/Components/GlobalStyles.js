@@ -10,12 +10,20 @@ export const Container = styled.div`
   align-items: center;
 `;
 
+export const ContentContainer = styled.div`
+  padding-left: 80px;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: ${SMALL}px) {
+    padding-left: 20px;
+  }
+`;
+
 export const Card = styled.div`
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
   background-color: white;
-  padding: 35px 60px 0 60px;
-  border-radius: 8px;
   background-image: url(${(props) => props.image.normal}),
     linear-gradient(
       -45deg,
@@ -54,7 +62,7 @@ export const Button = styled(Link)`
   margin-top: 30px;
   ${'' /* background-color: ${props => props.theme.textDark}; */}
   border: 2px solid ${(props) => props.theme.textDark};
-  padding: 10px 0;
+  padding: 10px 0px;
   border-radius: 5px;
   color: ${(props) => props.theme.textColored};
   transition: box-shadow 500ms, color 250ms;

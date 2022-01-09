@@ -6,7 +6,6 @@ import { SMALL } from '../ScreenSizes';
 const Logo = styled.h1`
   font-size: 1.5em;
   position: relative;
-  font-weight: bold;
   padding-bottom: 5px;
   float: left;
   color: ${(props) => props.theme.textNormal};
@@ -168,6 +167,14 @@ const Menu = styled.div`
   }
 `;
 
+const NavBarContainer = styled.div`
+  padding: 50px 80px;
+
+  @media (max-width: ${SMALL}px) {
+    padding: 20px;
+  }
+`;
+
 export default class NavBar extends Component {
   constructor(props) {
     super(props);
@@ -206,7 +213,7 @@ export default class NavBar extends Component {
     const { index, theme } = this.props;
     const { hideMenu } = this.state;
     return (
-      <div>
+      <NavBarContainer>
         <Logo>ANTONWY</Logo>
         <List hidden={hideMenu}>
           <CloseBtn onClick={this.toggleMenu()} hidden={hideMenu} />
@@ -244,7 +251,7 @@ export default class NavBar extends Component {
           </StyleLink>
         </List>
         <Menu onClick={this.toggleMenu()} />
-      </div>
+      </NavBarContainer>
     );
   }
 }
