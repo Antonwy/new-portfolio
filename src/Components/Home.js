@@ -4,6 +4,7 @@ import NavBar from './NavBar';
 import { Container, Card, Button, ContentContainer } from './GlobalStyles';
 import { SMALL } from '../ScreenSizes';
 import { motion } from 'framer-motion';
+import { slideInVariants, staggerContainerVariants } from '../MotionVariants';
 
 const Header = styled(motion.h1)`
   color: ${(props) => props.theme.textColored};
@@ -55,47 +56,17 @@ const ThemeButton = styled.div`
   }
 `;
 
-const containerVariants = {
-  enter: {
-    transition: {
-      staggerChildren: 0.2,
-      duration: 2,
-    },
-  },
-  init: {},
-  exit: {
-    transition: {
-      staggerChildren: 0.1,
-      duration: 2,
-    },
-  },
-};
-
-const headerVariants = {
-  enter: {
-    scale: 1,
-    opacity: 1,
-    transition: { ease: 'anticipate', duration: 1 },
-    x: 0,
-  },
-  init: {
-    x: 0,
-    scale: 0.5,
-    opacity: 0,
-  },
-  exit: {
-    scale: 0.5,
-    opacity: 0,
-  },
-};
-
 const buttonVariants = {
   enter: {
     scale: 1,
-    transition: { ease: 'anticipate', duration: 1 },
+    transition: { ease: 'easeOut', duration: 0.5 },
+    y: 0,
+    opacity: 1,
   },
   init: {
+    y: 20,
     scale: 0,
+    opacity: 0,
   },
   exit: {
     scale: 0,
@@ -114,9 +85,9 @@ const Home = ({ theme, changeTheme }) => {
   return (
     <Container image={theme.images.home}>
       <Card>
-        <ContentContainer as={motion.div} variants={containerVariants}>
-          <Header variants={headerVariants}>HI I’M ANTON WYROWSKI</Header>
-          <SubHeader variants={headerVariants}>
+        <ContentContainer as={motion.div} variants={staggerContainerVariants}>
+          <Header variants={slideInVariants}>HI I’M ANTON WYROWSKI</Header>
+          <SubHeader variants={slideInVariants}>
             I’m a german Software developer.
           </SubHeader>
           <Button variants={buttonVariants} to="/aboutMe">

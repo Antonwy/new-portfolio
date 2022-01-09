@@ -3,6 +3,8 @@ import { Container, Card } from './GlobalStyles';
 import WorkItem from './WorkItem';
 import styled from 'styled-components';
 import { SMALL } from '../ScreenSizes';
+import { motion } from 'framer-motion';
+import { staggerContainerVariants } from '../MotionVariants';
 
 // const AnimatedGrid = posed.div({
 //   enter: {
@@ -15,7 +17,7 @@ import { SMALL } from '../ScreenSizes';
 //   },
 // });
 
-const Grid = styled.div`
+const Grid = styled(motion.div)`
   width: 100%;
   height: 80%;
   display: grid;
@@ -56,7 +58,7 @@ const MyWork = () => {
   return (
     <Container image="">
       <Card>
-        <Grid>
+        <Grid variants={staggerContainerVariants}>
           <WorkItem
             size={12}
             color={{ from: '#4040F4', to: '#713FFA' }}

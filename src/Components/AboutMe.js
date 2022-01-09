@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container, Card } from './GlobalStyles';
-import NavBar from './NavBar';
 import styled from 'styled-components';
 import { MEDIUM, SMALL, SUPER_SMALL } from '../ScreenSizes';
-
+import { motion } from 'framer-motion';
 import ANTON from '../Assets/anton.jpg';
+import { slideInVariants, staggerContainerVariants } from '../MotionVariants';
 
 const Content = styled.div`
   width: calc(100% - 160px);
@@ -23,7 +23,7 @@ const Content = styled.div`
   }
 `;
 
-const Header = styled.h1`
+const Header = styled(motion.h1)`
   color: ${(props) => props.theme.textColored};
   font-size: 80px;
   margin-bottom: 30px;
@@ -42,7 +42,7 @@ const Header = styled.h1`
   }
 `;
 
-const Text = styled.p`
+const Text = styled(motion.p)`
   color: ${(props) => props.theme.textNormal};
   max-width: 600px;
 
@@ -59,7 +59,7 @@ const Text = styled.p`
   }
 `;
 
-const Image = styled.div`
+const Image = styled(motion.div)`
   background-image: url(${ANTON});
   width: 35%;
   aspect-ratio: 1;
@@ -74,7 +74,7 @@ const Image = styled.div`
   }
 `;
 
-const TextSpacer = styled.div`
+const TextSpacer = styled(motion.div)`
   margin-left: 40px;
 
   @media (max-width: ${MEDIUM}px) {
@@ -88,15 +88,30 @@ const Link = styled.a`
   color: ${(props) => props.theme.textDark};
 `;
 
+const imageVariants = {
+  enter: {
+    scale: 1,
+    opacity: 1,
+    transition: { ease: 'easeOut', duration: 0.5 },
+  },
+  init: {
+    opacity: 0,
+    scale: 0,
+  },
+  exit: {
+    opacity: 0,
+  },
+};
+
 const AboutMe = (props) => {
   return (
     <Container image="">
       <Card center>
         <Content>
-          <Image />
-          <TextSpacer>
-            <Header>About me</Header>
-            <Text>
+          <Image variants={imageVariants} />
+          <TextSpacer variants={staggerContainerVariants}>
+            <Header variants={slideInVariants}>About me</Header>
+            <Text variants={slideInVariants}>
               Hi I’m Anton Wyrowski!
               <br />
               I’m currently living in Munich, Germany to study Computer Science

@@ -3,26 +3,11 @@ import styled from 'styled-components';
 
 import Github from '../Assets/githubIcon.svg';
 import Open from '../Assets/openIcon.svg';
+import { slideInVariants } from '../MotionVariants';
 import { SMALL } from '../ScreenSizes';
+import { motion } from 'framer-motion';
 
-// const AnimatedBubble = posed.div({
-//   enter: {
-//     scale: 1,
-//     opacity: 1,
-//     transition: { duration: 500 },
-//     x: 0,
-//     y: 0,
-//   },
-//   exit: {
-//     scale: 3,
-//     opacity: 0,
-//     transition: { duration: 500 },
-//     x: (Math.random() > 0.5 ? 1 : -1) * Math.random() * 500,
-//     y: (Math.random() > 0.5 ? 1 : -1) * Math.random() * 500,
-//   },
-// });
-
-const Bubble = styled.div`
+const Bubble = styled(motion.div)`
   width: ${(props) => `${props.size}vw`};
   height: ${(props) => `${props.size}vw`};
   border-radius: 50%;
@@ -134,9 +119,37 @@ const generateLink = (url) => () => {
   window.open(finalURL, '_blank');
 };
 
+const bubbleVariant = {
+  enter: {
+    scale: 1,
+    opacity: 1,
+    transition: { duration: 0.5, ease: 'easeOut' },
+    x: 0,
+    y: 0,
+  },
+  init: {
+    scale: 3,
+    opacity: 0,
+    x: (Math.random() > 0.5 ? 1 : -1) * Math.random() * 500,
+    y: (Math.random() > 0.5 ? 1 : -1) * Math.random() * 500,
+  },
+  exit: {
+    scale: 0,
+    opacity: 0,
+    transition: { duration: 0.5 },
+    x: (Math.random() > 0.5 ? 1 : -1) * Math.random() * 500,
+    y: (Math.random() > 0.5 ? 1 : -1) * Math.random() * 500,
+  },
+};
+
 const WorkItem = ({ size, color, gridArea, title, url, github }) => {
   return (
-    <Bubble size={size} color={color} gridArea={gridArea}>
+    <Bubble
+      variants={bubbleVariant}
+      size={size}
+      color={color}
+      gridArea={gridArea}
+    >
       <Title>{title}</Title>
       <Container>
         <Button color={color}>
