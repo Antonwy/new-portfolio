@@ -1,14 +1,50 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { SMALL } from '../ScreenSizes';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
-export const Container = styled.div`
+const list = {
+  enter: {
+    opacity: 1,
+    transition: {
+      when: 'beforeChildren',
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+  init: {
+    opacity: 0,
+  },
+};
+
+export const StyledContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url(${(props) => props.image.normal});
+  background-position: ${(props) =>
+    props.center ? 'bottom right' : 'bottom center'};
+  background-repeat: no-repeat;
+  background-size: 100%;
+  position: fixed;
+
+  @media (max-width: ${SMALL}px) {
+    background-image: url(${(props) => props.image.mobile});
+    background-size: 135%;
+  }
 `;
+
+export const Container = ({ children, image }) => (
+  <motion.div initial="init" animate="enter" exit="exit" variants={list}>
+    <StyledContainer image={image}>{children}</StyledContainer>
+  </motion.div>
+);
 
 export const ContentContainer = styled.div`
   padding-left: 80px;
@@ -16,47 +52,30 @@ export const ContentContainer = styled.div`
   flex-direction: column;
 
   @media (max-width: ${SMALL}px) {
-    padding-left: 20px;
+    padding-left: 0px;
   }
 `;
 
 export const Card = styled.div`
   width: 100%;
-  height: 100%;
-  background-color: white;
-  background-image: url(${(props) => props.image.normal}),
-    linear-gradient(
-      -45deg,
-      ${(props) => props.theme.gradient.from} 0%,
-      ${(props) => props.theme.gradient.to} 100%
-    );
-  background-position: ${(props) =>
-    props.center ? 'bottom right' : 'bottom center'};
-  background-repeat: no-repeat;
-  overflow: hidden;
-  background-size: 100%;
+  height: calc(100% - 80px);
   display: flex;
   flex-direction: column;
   z-index: 2;
   position: relative;
+  padding-top: 80px;
+  overflow: auto;
 
   @media (max-width: ${SMALL}px) {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    padding: 25px 30px 0 30px;
+    padding: 25px 20px 0 20px;
     border-radius: 0px;
-    background-image: url(${(props) => props.image.mobile}),
-      linear-gradient(
-        -45deg,
-        ${(props) => props.theme.gradient.from} 0%,
-        ${(props) => props.theme.gradient.to} 100%
-      );
-    background-size: 135%;
   }
 `;
 
-export const Button = styled(Link)`
+export const Button = styled(motion(Link))`
   width: 150px;
   text-align: center;
   margin-top: 30px;

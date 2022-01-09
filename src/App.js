@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Home from './Components/Home';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import AboutMe from './Components/AboutMe';
-import { AnimatedSwitch } from 'react-router-transition';
 import MyWork from './Components/MyWork';
 import Contact from './Components/Contact';
-import { SMALL } from './ScreenSizes';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
+import { AnimatePresence } from 'framer-motion';
 
 // IMAGES
 
@@ -27,6 +26,7 @@ import HamburgerLight from './Assets/Light/hamburger_light.svg';
 
 import CloseDark from './Assets/Dark/close_dark.svg';
 import CloseLight from './Assets/Light/close_light.svg';
+import NavBar from './Components/NavBar';
 
 const darkTheme = {
   dark: true,
@@ -86,58 +86,39 @@ const lightTheme = {
   },
 };
 
-// const pages =[
-//   "/",
-//   "/aboutMe",
-//   "/myWork",
-//   "/contact"
-// ]
+const RoutesContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
 
-// let currentPage = 0;
-// let scroll = true;
+const App = () => {
+  const [theme, setTheme] = useState(darkTheme);
+  const location = useLocation();
 
-class App extends Component {
-  state = {
-    theme: darkTheme,
+  const changeTheme = (tf) => {
+    setTheme(tf ? darkTheme : lightTheme);
   };
 
-  changeTheme = (tf) => {
-    this.setState({ theme: tf ? darkTheme : lightTheme });
-  };
+  document.querySelector(
+    'body'
+  ).style.backgroundImage = `linear-gradient(45deg, ${theme.gradient.from} 0%, ${theme.gradient.to} 100%)`;
 
-  renderHome = () => {
-    return <Home theme={this.state.theme} changeTheme={this.changeTheme} />;
-  };
+  const buildHome = () => <Home theme={theme} changeTheme={changeTheme} />;
+  const buildPage = (MyPage) => () => <MyPage theme={theme} />;
 
-  renderComponents = (MyComp) => () => {
-    return <MyComp theme={this.state.theme} />;
-  };
+  return (
+    <ThemeProvider style={{ width: '100%', height: '100%' }} theme={theme}>
+      <NavBar key="navbar" index={location.pathname} />
+      <AnimatePresence exitBeforeEnter>
+        <Switch location={location} key={location.pathname}>
+          <Route exact path="/" component={buildHome} />
+          <Route path="/aboutMe" component={buildPage(AboutMe)} />
+          <Route path="/myWork" component={buildPage(MyWork)} />
+          <Route path="/contact" component={buildPage(Contact)} />
+        </Switch>
+      </AnimatePresence>
+    </ThemeProvider>
+  );
+};
 
-  render() {
-    const { theme } = this.state;
-    document.querySelector(
-      'body'
-    ).style.backgroundImage = `linear-gradient(45deg, ${theme.gradient.from} 0%, ${theme.gradient.to} 100%)`;
-    return (
-      <ThemeProvider
-        style={{ width: '100%', height: '100%' }}
-        theme={this.state.theme}
-        onScroll={this.handleScroll}
-      >
-        <AnimatedSwitch
-          atEnter={window.innerWidth > SMALL ? { opacity: 0 } : { opacity: 1 }}
-          atLeave={window.innerWidth > SMALL ? { opacity: 0 } : { opacity: 1 }}
-          atActive={{ opacity: 1 }}
-          className="switch-wrapper"
-        >
-          <Route exact path="/" component={this.renderHome} />
-          <Route path="/aboutMe" component={this.renderComponents(AboutMe)} />
-          <Route path="/myWork" component={this.renderComponents(MyWork)} />
-          <Route path="/contact" component={this.renderComponents(Contact)} />
-        </AnimatedSwitch>
-      </ThemeProvider>
-    );
-  }
-}
-
-export default withRouter(App);
+export default App;

@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import styled from 'styled-components';
 import NavBar from './NavBar';
 import { Container, Card, Button, ContentContainer } from './GlobalStyles';
 import { SMALL } from '../ScreenSizes';
+import { motion } from 'framer-motion';
 
-const Header = styled.h1`
+const Header = styled(motion.h1)`
   color: ${(props) => props.theme.textColored};
   margin: 0;
   margin-top: 80px;
@@ -16,7 +17,7 @@ const Header = styled.h1`
   }
 `;
 
-const SubHeader = styled.p`
+const SubHeader = styled(motion.p)`
   color: ${(props) => props.theme.textDark};
   margin-left: 5px;
   margin-top: 20px;
@@ -54,45 +55,92 @@ const ThemeButton = styled.div`
   }
 `;
 
-export default class Home extends Component {
-  state = {
-    dark: this.props.theme.dark,
-  };
+const containerVariants = {
+  enter: {
+    transition: {
+      staggerChildren: 0.2,
+      duration: 2,
+    },
+  },
+  init: {},
+  exit: {
+    transition: {
+      staggerChildren: 0.1,
+      duration: 2,
+    },
+  },
+};
 
-  changeTheme = (tf) => (event) => {
+const headerVariants = {
+  enter: {
+    scale: 1,
+    opacity: 1,
+    transition: { ease: 'anticipate', duration: 1 },
+    x: 0,
+  },
+  init: {
+    x: 0,
+    scale: 0.5,
+    opacity: 0,
+  },
+  exit: {
+    scale: 0.5,
+    opacity: 0,
+  },
+};
+
+const buttonVariants = {
+  enter: {
+    scale: 1,
+    transition: { ease: 'anticipate', duration: 1 },
+  },
+  init: {
+    scale: 0,
+  },
+  exit: {
+    scale: 0,
+  },
+};
+
+const Home = ({ theme, changeTheme }) => {
+  const [dark, setDark] = useState(theme.dark);
+
+  const changeThemeFunc = (tf) => (event) => {
     event.preventDefault();
-    this.setState({ dark: tf });
-    this.props.changeTheme(tf);
+    setDark(tf);
+    changeTheme(tf);
   };
 
-  render() {
-    return (
-      <Container>
-        <Card image={this.props.theme.images.home}>
-          <NavBar index="0" />
+  return (
+    <Container image={theme.images.home}>
+      <Card>
+        <ContentContainer as={motion.div} variants={containerVariants}>
+          <Header variants={headerVariants}>HI I’M ANTON WYROWSKI</Header>
+          <SubHeader variants={headerVariants}>
+            I’m a german Software developer.
+          </SubHeader>
+          <Button variants={buttonVariants} to="/aboutMe">
+            Learn More
+          </Button>
+        </ContentContainer>
 
-          <ContentContainer>
-            <Header>HI I’M ANTON WYROWSKI</Header>
-            <SubHeader>I’m a german Software developer.</SubHeader>
-            <Button to="/aboutMe">Learn More</Button>
-          </ContentContainer>
+        <ThemeChooserContainer>
+          <ThemeButton
+            onClick={changeThemeFunc(false)}
+            active={dark ? false : true}
+          >
+            Light
+          </ThemeButton>
+          <ThemeButton
+            onClick={changeThemeFunc(true)}
+            active={dark ? true : false}
+          >
+            Dark
+          </ThemeButton>
+        </ThemeChooserContainer>
+      </Card>
+    </Container>
+  );
+};
 
-          <ThemeChooserContainer>
-            <ThemeButton
-              onClick={this.changeTheme(false)}
-              active={this.state.dark ? false : true}
-            >
-              Light
-            </ThemeButton>
-            <ThemeButton
-              onClick={this.changeTheme(true)}
-              active={this.state.dark ? true : false}
-            >
-              Dark
-            </ThemeButton>
-          </ThemeChooserContainer>
-        </Card>
-      </Container>
-    );
-  }
-}
+export default Home;

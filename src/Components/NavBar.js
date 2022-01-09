@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { SMALL } from '../ScreenSizes';
@@ -68,7 +68,7 @@ const List = styled.ul`
   }
 
   @media (max-width: ${SMALL}px) {
-    position: absolute;
+    position: fixed;
     background-image: linear-gradient(
       -45deg,
       ${(props) => props.theme.gradient.from} 0%,
@@ -169,89 +169,96 @@ const Menu = styled.div`
 
 const NavBarContainer = styled.div`
   padding: 50px 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100vw - 160px);
+  z-index: 200;
 
   @media (max-width: ${SMALL}px) {
     padding: 20px;
+    width: calc(100vw - 40px);
   }
 `;
 
-export default class NavBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { hideMenu: window.innerWidth > SMALL ? false : true };
-  }
+const useWindowSizeToHide = () => {
+  const [hide, setHide] = useState(false);
 
-  toggleMenu = (index, visible) => () => {
-    if ((this.props.index == index && index) || window.innerWidth > SMALL)
-      return;
-    this.setState((state) => ({
-      hideMenu: !state.hideMenu,
-    }));
-  };
-
-  updateScreenSize = () => {
-    if (window.innerWidth > SMALL && this.state.hideMenu) {
-      this.setState({
-        hideMenu: false,
-      });
-    } else if (window.innerWidth < SMALL && !this.state.hideMenu) {
-      this.setState({
-        hideMenu: true,
-      });
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth > SMALL && hide) {
+        setHide(false);
+      } else if (window.innerWidth < SMALL && !hide) {
+        setHide(true);
+      }
     }
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return hide;
+};
+
+const NavBar = ({ index, theme }) => {
+  const hideMenuCauseOfSize = useWindowSizeToHide();
+  const [hideMenu, setHideMenu] = useState(true);
+
+  const toggleMenu = (index, visible) => () => {
+    if ((index == index && index) || window.innerWidth > SMALL) return;
+
+    console.log(hideMenu);
+
+    setHideMenu(!hideMenu);
   };
 
-  componentDidMount() {
-    window.addEventListener('resize', this.updateScreenSize);
-  }
+  return (
+    <NavBarContainer>
+      <Logo>ANTONWY</Logo>
+      <List hidden={hideMenu && hideMenuCauseOfSize}>
+        <CloseBtn
+          onClick={toggleMenu()}
+          hidden={hideMenu && hideMenuCauseOfSize}
+        />
+        <StyleLink to="/contact">
+          <ListItem
+            index={index == '/contact' ? true : false}
+            onClick={toggleMenu(3, false)}
+          >
+            Contact
+          </ListItem>
+        </StyleLink>
+        <StyleLink to="/myWork">
+          <ListItem
+            index={index == '/myWork' ? true : false}
+            onClick={toggleMenu(2, false)}
+          >
+            My work
+          </ListItem>
+        </StyleLink>
+        <StyleLink to="/aboutMe">
+          <ListItem
+            index={index == '/aboutMe' ? true : false}
+            onClick={toggleMenu(1, false)}
+          >
+            About me
+          </ListItem>
+        </StyleLink>
+        <StyleLink to="/">
+          <ListItem
+            index={index == '/' ? true : false}
+            onClick={toggleMenu(0, false)}
+          >
+            Home
+          </ListItem>
+        </StyleLink>
+      </List>
+      <Menu onClick={toggleMenu()} />
+    </NavBarContainer>
+  );
+};
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateScreenSize);
-  }
-
-  render() {
-    const { index, theme } = this.props;
-    const { hideMenu } = this.state;
-    return (
-      <NavBarContainer>
-        <Logo>ANTONWY</Logo>
-        <List hidden={hideMenu}>
-          <CloseBtn onClick={this.toggleMenu()} hidden={hideMenu} />
-          <StyleLink to="/contact">
-            <ListItem
-              index={index == 3 ? true : false}
-              onClick={this.toggleMenu(3, false)}
-            >
-              Contact
-            </ListItem>
-          </StyleLink>
-          <StyleLink to="/myWork">
-            <ListItem
-              index={index == 2 ? true : false}
-              onClick={this.toggleMenu(2, false)}
-            >
-              My work
-            </ListItem>
-          </StyleLink>
-          <StyleLink to="/aboutMe">
-            <ListItem
-              index={index == 1 ? true : false}
-              onClick={this.toggleMenu(1, false)}
-            >
-              About me
-            </ListItem>
-          </StyleLink>
-          <StyleLink to="/">
-            <ListItem
-              index={index == 0 ? true : false}
-              onClick={this.toggleMenu(0, false)}
-            >
-              Home
-            </ListItem>
-          </StyleLink>
-        </List>
-        <Menu onClick={this.toggleMenu()} />
-      </NavBarContainer>
-    );
-  }
-}
+export default NavBar;

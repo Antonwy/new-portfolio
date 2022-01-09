@@ -4,23 +4,25 @@ import styled from 'styled-components';
 import Github from '../Assets/githubIcon.svg';
 import Open from '../Assets/openIcon.svg';
 import { SMALL } from '../ScreenSizes';
-import posed from 'react-pose';
 
-const AnimatedBubble = posed.div({
-  show: {
-    scale: 1,
-    transition: { duration: 500 },
-    x: 0,
-    y: 0,
-  },
-  hide: {
-    scale: 0,
-    // x: Math.random() * 200,
-    y: 300,
-  },
-});
+// const AnimatedBubble = posed.div({
+//   enter: {
+//     scale: 1,
+//     opacity: 1,
+//     transition: { duration: 500 },
+//     x: 0,
+//     y: 0,
+//   },
+//   exit: {
+//     scale: 3,
+//     opacity: 0,
+//     transition: { duration: 500 },
+//     x: (Math.random() > 0.5 ? 1 : -1) * Math.random() * 500,
+//     y: (Math.random() > 0.5 ? 1 : -1) * Math.random() * 500,
+//   },
+// });
 
-const Bubble = styled(AnimatedBubble)`
+const Bubble = styled.div`
   width: ${(props) => `${props.size}vw`};
   height: ${(props) => `${props.size}vw`};
   border-radius: 50%;
@@ -133,7 +135,6 @@ const generateLink = (url) => () => {
 };
 
 const WorkItem = ({ size, color, gridArea, title, url, github }) => {
-  console.log(typeof github);
   return (
     <Bubble size={size} color={color} gridArea={gridArea}>
       <Title>{title}</Title>

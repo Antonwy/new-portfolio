@@ -2,32 +2,55 @@ import React from 'react';
 import { Container, Card } from './GlobalStyles';
 import NavBar from './NavBar';
 import styled from 'styled-components';
-import { SMALL } from '../ScreenSizes';
+import { MEDIUM, SMALL, SUPER_SMALL } from '../ScreenSizes';
 
 import ANTON from '../Assets/anton.jpg';
 
 const Content = styled.div`
-  width: 100%;
+  width: calc(100% - 160px);
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  padding: 40px;
+  flex-wrap: wrap;
+  padding: 80px;
+
+  @media (max-width: ${SMALL}px) {
+    width: 100%;
+    padding: 0px;
+    padding-top: 80px;
+  }
 `;
 
 const Header = styled.h1`
   color: ${(props) => props.theme.textColored};
   font-size: 80px;
   margin-bottom: 30px;
+
+  @media (max-width: ${SUPER_SMALL}px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: ${SMALL}px) {
+    font-size: 40px;
+  }
+
+  @media (max-width: ${MEDIUM}px) {
+    font-size: 60px;
+    text-align: center;
+  }
 `;
 
 const Text = styled.p`
   color: ${(props) => props.theme.textNormal};
   max-width: 600px;
-  width: 90%;
 
-  @media (max-width: 350px) {
+  @media (max-width: ${MEDIUM}px) {
+    text-align: center;
+  }
+
+  @media (max-width: ${SUPER_SMALL}px) {
     font-size: 0.75em;
   }
 
@@ -36,42 +59,29 @@ const Text = styled.p`
   }
 `;
 
-const Background = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image: url(${(props) => props.theme.images.about.normal});
-  background-repeat: no-repeat;
-  background-position: bottom center;
-  background-size: 1200px;
-  bottom: 0;
-  left: 0;
-  z-index: -5;
-
-  @media (min-height: 1200px) {
-    background-size: 200%;
-  }
-
-  @media (max-width: ${SMALL}px) {
-    background-size: 100%;
-    background-position-y: -100%;
-    background-image: url(${(props) => props.theme.images.about.mobile});
-  }
-
-  @media (max-width: 600px) {
-    background-position-y: 100%;
-  }
-`;
-
 const Image = styled.div`
   background-image: url(${ANTON});
-  width: 400px;
-  height: 400px;
+  width: 35%;
+  aspect-ratio: 1;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   border-radius: 12px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+  @media (max-width: ${SMALL}px) {
+    width: 80%;
+  }
+`;
+
+const TextSpacer = styled.div`
+  margin-left: 40px;
+
+  @media (max-width: ${MEDIUM}px) {
+    margin-left: 0;
+    margin-top: 20px;
+    padding-bottom: 40px;
+  }
 `;
 
 const Link = styled.a`
@@ -80,12 +90,11 @@ const Link = styled.a`
 
 const AboutMe = (props) => {
   return (
-    <Container>
-      <Card image="" center>
-        <NavBar index="1" />
+    <Container image="">
+      <Card center>
         <Content>
           <Image />
-          <div style={{ marginLeft: 40 }}>
+          <TextSpacer>
             <Header>About me</Header>
             <Text>
               Hi I’m Anton Wyrowski!
@@ -107,7 +116,7 @@ const AboutMe = (props) => {
                 here
               </Link>
             </Text>
-          </div>
+          </TextSpacer>
         </Content>
       </Card>
     </Container>
