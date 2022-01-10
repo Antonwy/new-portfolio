@@ -86,11 +86,6 @@ const lightTheme = {
   },
 };
 
-const RoutesContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
-`;
-
 const App = () => {
   const [theme, setTheme] = useState(darkTheme);
   const location = useLocation();

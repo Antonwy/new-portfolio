@@ -1,16 +1,16 @@
 import React from 'react';
 import { Container, Card } from './GlobalStyles';
 import styled from 'styled-components';
-import NavBar from './NavBar';
-
 import Github from '../Assets/githubIcon.svg';
 import Twitter from '../Assets/twitterIcon.svg';
 import Gmail from '../Assets/gmailIcon.svg';
 import Insta from '../Assets/instaIcon.svg';
 import Facebook from '../Assets/facebookIcon.svg';
 import { SMALL } from '../ScreenSizes';
+import { motion } from 'framer-motion';
+import { slideInVariants } from '../MotionVariants';
 
-const Rect = styled.div`
+const Rect = styled(motion.div)`
   background-image: linear-gradient(
     -45deg,
     ${(props) => props.theme.contactGradient.from} 0%,
@@ -50,11 +50,11 @@ const Center = styled.div`
   align-items: center;
 `;
 
-const Header = styled.h1`
+const Header = styled(motion.h1)`
   color: white;
 `;
 
-const ListItem = styled.div`
+const ListItem = styled(motion.div)`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -65,6 +65,7 @@ const P = styled.a`
   color: white;
   margin-left: 20px;
   font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
 `;
 
@@ -76,34 +77,68 @@ const openLink = (url) => () => {
   }
 };
 
+export const staggerContainerVariants = {
+  enter: {
+    rotate: -45,
+    scale: 1,
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      duration: 1,
+      when: 'beforeChildren',
+    },
+  },
+  init: {
+    rotate: 0,
+    scale: 0.5,
+    opacity: 0,
+  },
+  exit: {
+    transition: {
+      staggerChildren: 0.1,
+      duration: 2,
+    },
+  },
+};
+
 const Contact = (props) => {
   return (
     <Container image="">
       <Card>
         <Center>
-          <Rect>
+          <Rect variants={staggerContainerVariants}>
             <Content>
-              <Header>Contact</Header>
-              <ListItem onClick={openLink('https://github.com/Antonwy')}>
+              <Header variants={slideInVariants}>Contact</Header>
+              <ListItem
+                variants={slideInVariants}
+                onClick={openLink('https://github.com/Antonwy')}
+              >
                 <img width="30" src={Github} />
                 <P>Antonwy</P>
               </ListItem>
-              <ListItem onClick={openLink('anton.wyrowski@gmail.com')}>
+              <ListItem
+                variants={slideInVariants}
+                onClick={openLink('anton.wyrowski@gmail.com')}
+              >
                 <img width="30" src={Gmail} />
                 <P>anton.wyrowski@gmail.com</P>
               </ListItem>
-
               <ListItem
+                variants={slideInVariants}
                 onClick={openLink('https://www.facebook.com/anton.deutschland')}
               >
                 <img width="30" src={Facebook} />
                 <P>Anton Wyrowski</P>
               </ListItem>
-              <ListItem onClick={openLink('https://twitter.com/antonwyro')}>
+              <ListItem
+                variants={slideInVariants}
+                onClick={openLink('https://twitter.com/antonwyro')}
+              >
                 <img width="30" src={Twitter} />
                 <P>antonwyro</P>
               </ListItem>
               <ListItem
+                variants={slideInVariants}
                 onClick={openLink('https://www.instagram.com/antonwyr/')}
               >
                 <img width="30" src={Insta} />

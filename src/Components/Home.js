@@ -1,6 +1,5 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import NavBar from './NavBar';
 import { Container, Card, Button, ContentContainer } from './GlobalStyles';
 import { SMALL } from '../ScreenSizes';
 import { motion } from 'framer-motion';
@@ -30,7 +29,7 @@ const SubHeader = styled(motion.p)`
   }
 `;
 
-const ThemeChooserContainer = styled.div`
+const ThemeChooserContainer = styled(motion.div)`
   position: absolute;
   bottom: 0;
   left: 0;
@@ -39,7 +38,7 @@ const ThemeChooserContainer = styled.div`
   justify-content: center;
 `;
 
-const ThemeButton = styled.div`
+const ThemeButton = styled(motion.div)`
   width: 75px;
   background-color: ${(props) => (props.active ? 'white' : 'transparent')};
   color: ${(props) => (props.active ? 'black' : props.theme.textColored)};
@@ -73,6 +72,21 @@ const buttonVariants = {
   },
 };
 
+const themeButtonVariants = {
+  enter: {
+    transition: { ease: 'easeOut', duration: 0.5 },
+    y: 0,
+    opacity: 1,
+  },
+  init: {
+    y: 100,
+    opacity: 0,
+  },
+  exit: {
+    opacity: 0,
+  },
+};
+
 const Home = ({ theme, changeTheme }) => {
   const [dark, setDark] = useState(theme.dark);
 
@@ -95,16 +109,18 @@ const Home = ({ theme, changeTheme }) => {
           </Button>
         </ContentContainer>
 
-        <ThemeChooserContainer>
+        <ThemeChooserContainer variants={staggerContainerVariants}>
           <ThemeButton
             onClick={changeThemeFunc(false)}
             active={dark ? false : true}
+            variants={themeButtonVariants}
           >
             Light
           </ThemeButton>
           <ThemeButton
             onClick={changeThemeFunc(true)}
             active={dark ? true : false}
+            variants={themeButtonVariants}
           >
             Dark
           </ThemeButton>

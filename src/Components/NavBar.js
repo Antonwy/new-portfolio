@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { SMALL } from '../ScreenSizes';
+import { motion } from 'framer-motion';
+import { staggerContainerVariants } from '../MotionVariants';
 
-const Logo = styled.h1`
+const Logo = styled(motion.h1)`
   font-size: 1.5em;
   position: relative;
   padding-bottom: 5px;
@@ -127,7 +129,7 @@ const ListItem = styled.li`
   }
 `;
 
-const StyleLink = styled(Link)`
+const StyleLink = styled(motion(Link))`
   text-decoration: none;
   color: inherit;
 `;
@@ -167,7 +169,7 @@ const Menu = styled.div`
   }
 `;
 
-const NavBarContainer = styled.div`
+const NavBarContainer = styled(motion.div)`
   padding: 50px 80px;
   position: fixed;
   top: 0;
@@ -203,6 +205,21 @@ const useWindowSizeToHide = () => {
   return hide;
 };
 
+const topBottomVariants = {
+  enter: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      ease: 'easeOut',
+      duration: 1,
+    },
+  },
+  init: {
+    y: -20,
+    opacity: 0,
+  },
+};
+
 const NavBar = ({ index, theme }) => {
   const hideMenuCauseOfSize = useWindowSizeToHide();
   const [hideMenu, setHideMenu] = useState(true);
@@ -217,13 +234,20 @@ const NavBar = ({ index, theme }) => {
 
   return (
     <NavBarContainer>
-      <Logo>ANTONWY</Logo>
-      <List hidden={hideMenu && hideMenuCauseOfSize}>
+      <Logo animate="enter" initial="init" variants={topBottomVariants}>
+        ANTONWY
+      </Logo>
+      <List
+        animate="enter"
+        initial="init"
+        variants={staggerContainerVariants}
+        hidden={hideMenu && hideMenuCauseOfSize}
+      >
         <CloseBtn
           onClick={toggleMenu()}
           hidden={hideMenu && hideMenuCauseOfSize}
         />
-        <StyleLink to="/contact">
+        <StyleLink variants={topBottomVariants} to="/contact">
           <ListItem
             index={index == '/contact' ? true : false}
             onClick={toggleMenu(3, false)}
@@ -231,7 +255,7 @@ const NavBar = ({ index, theme }) => {
             Contact
           </ListItem>
         </StyleLink>
-        <StyleLink to="/myWork">
+        <StyleLink variants={topBottomVariants} to="/myWork">
           <ListItem
             index={index == '/myWork' ? true : false}
             onClick={toggleMenu(2, false)}
@@ -239,7 +263,7 @@ const NavBar = ({ index, theme }) => {
             My work
           </ListItem>
         </StyleLink>
-        <StyleLink to="/aboutMe">
+        <StyleLink variants={topBottomVariants} to="/aboutMe">
           <ListItem
             index={index == '/aboutMe' ? true : false}
             onClick={toggleMenu(1, false)}
@@ -247,7 +271,7 @@ const NavBar = ({ index, theme }) => {
             About me
           </ListItem>
         </StyleLink>
-        <StyleLink to="/">
+        <StyleLink variants={topBottomVariants} to="/">
           <ListItem
             index={index == '/' ? true : false}
             onClick={toggleMenu(0, false)}
