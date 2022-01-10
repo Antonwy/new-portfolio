@@ -14,6 +14,22 @@ export const staggerContainerVariants = {
   },
 };
 
+export const staggerContainerVariantsShort = {
+  enter: {
+    transition: {
+      staggerChildren: 0.2,
+      duration: 1,
+    },
+  },
+  init: {},
+  exit: {
+    transition: {
+      staggerChildren: 0.1,
+      duration: 1,
+    },
+  },
+};
+
 export const slideInVariants = {
   enter: {
     opacity: 1,

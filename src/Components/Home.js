@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Container, Card, Button, ContentContainer } from './GlobalStyles';
+import {
+  Container,
+  Card,
+  Button,
+  ContentContainer,
+  TextUnderline,
+} from './GlobalStyles';
 import { SMALL } from '../ScreenSizes';
 import { motion } from 'framer-motion';
 import { slideInVariants, staggerContainerVariants } from '../MotionVariants';
@@ -10,6 +16,7 @@ const Header = styled(motion.h1)`
   margin: 0;
   margin-top: 80px;
   font-size: 3.5em;
+  z-index: 20;
 
   @media (max-width: ${SMALL}px) {
     font-size: 2em;
@@ -100,7 +107,9 @@ const Home = ({ theme, changeTheme }) => {
     <Container image={theme.images.home}>
       <Card>
         <ContentContainer as={motion.div} variants={staggerContainerVariants}>
-          <Header variants={slideInVariants}>HI I’M ANTON WYROWSKI</Header>
+          <Header variants={slideInVariants}>
+            HI I’M <TextUnderline>ANTON WYROWSKI</TextUnderline>
+          </Header>
           <SubHeader variants={slideInVariants}>
             I’m a german Software developer.
           </SubHeader>

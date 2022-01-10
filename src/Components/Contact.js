@@ -8,7 +8,6 @@ import Insta from '../Assets/instaIcon.svg';
 import Facebook from '../Assets/facebookIcon.svg';
 import { SMALL } from '../ScreenSizes';
 import { motion } from 'framer-motion';
-import { slideInVariants } from '../MotionVariants';
 
 const Rect = styled(motion.div)`
   background-image: linear-gradient(
@@ -77,10 +76,11 @@ const openLink = (url) => () => {
   }
 };
 
-export const staggerContainerVariants = {
+const staggerContainerVariantsSmallScreen = {
   enter: {
-    rotate: -45,
-    scale: 1,
+    // rotate: -45,
+    skew: -10,
+    rotate: -10,
     opacity: 1,
     transition: {
       staggerChildren: 0.2,
@@ -90,7 +90,7 @@ export const staggerContainerVariants = {
   },
   init: {
     rotate: 0,
-    scale: 0.5,
+    skew: 0,
     opacity: 0,
   },
   exit: {
@@ -101,12 +101,57 @@ export const staggerContainerVariants = {
   },
 };
 
+const staggerContainerVariants = {
+  enter: {
+    rotate: -45,
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      duration: 1,
+      when: 'beforeChildren',
+    },
+  },
+  init: {
+    rotate: 0,
+    opacity: 0,
+  },
+  exit: {
+    transition: {
+      staggerChildren: 0.1,
+      duration: 2,
+    },
+  },
+};
+
+const slideInVariants = {
+  enter: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { ease: 'easeOut', duration: 0.5 },
+  },
+  init: {
+    opacity: 0,
+    scale: 0.5,
+    y: 20,
+  },
+  exit: {
+    opacity: 0,
+  },
+};
+
 const Contact = (props) => {
   return (
     <Container image="">
       <Card>
         <Center>
-          <Rect variants={staggerContainerVariants}>
+          <Rect
+            variants={
+              window.innerWidth > SMALL
+                ? staggerContainerVariants
+                : staggerContainerVariantsSmallScreen
+            }
+          >
             <Content>
               <Header variants={slideInVariants}>Contact</Header>
               <ListItem

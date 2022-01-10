@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Card } from './GlobalStyles';
+import { Container, Card, TextUnderline } from './GlobalStyles';
 import styled from 'styled-components';
 import { MEDIUM, SMALL, SUPER_SMALL } from '../ScreenSizes';
 import { motion } from 'framer-motion';
@@ -8,18 +8,23 @@ import { slideInVariants, staggerContainerVariants } from '../MotionVariants';
 
 const Content = styled.div`
   width: calc(100% - 160px);
-  height: 100%;
+  min-height: calc(100% - 160px);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  flex-wrap: wrap;
   padding: 80px;
 
   @media (max-width: ${SMALL}px) {
     width: 100%;
+    min-height: unset;
     padding: 0px;
     padding-top: 80px;
+  }
+
+  @media (max-width: 1000px) {
+    padding-top: 80px;
+    flex-direction: column;
   }
 `;
 
@@ -36,7 +41,7 @@ const Header = styled(motion.h1)`
     font-size: 40px;
   }
 
-  @media (max-width: ${MEDIUM}px) {
+  @media (max-width: 1000px) {
     font-size: 60px;
     text-align: center;
   }
@@ -46,7 +51,7 @@ const Text = styled(motion.p)`
   color: ${(props) => props.theme.textNormal};
   max-width: 600px;
 
-  @media (max-width: ${MEDIUM}px) {
+  @media (max-width: 1000px) {
     text-align: center;
   }
 
@@ -61,23 +66,25 @@ const Text = styled(motion.p)`
 
 const Image = styled(motion.div)`
   background-image: url(${ANTON});
-  width: 35%;
-  aspect-ratio: 1;
-  background-repeat: no-repeat;
+  width: 35vw;
+  height: 35vw;
+  max-width: 400px;
+  max-height: 400px;
   background-position: center;
   background-size: cover;
   border-radius: 12px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
   @media (max-width: ${SMALL}px) {
-    width: 80%;
+    width: 80vw;
+    height: 80vw;
   }
 `;
 
 const TextSpacer = styled(motion.div)`
   margin-left: 40px;
 
-  @media (max-width: ${MEDIUM}px) {
+  @media (max-width: 1000px) {
     margin-left: 0;
     margin-top: 20px;
     padding-bottom: 40px;
@@ -110,7 +117,9 @@ const AboutMe = (props) => {
         <Content>
           <Image variants={imageVariants} />
           <TextSpacer variants={staggerContainerVariants}>
-            <Header variants={slideInVariants}>About me</Header>
+            <Header variants={slideInVariants}>
+              About <TextUnderline>me</TextUnderline>
+            </Header>
             <Text variants={slideInVariants}>
               Hi I’m Anton Wyrowski!
               <br />

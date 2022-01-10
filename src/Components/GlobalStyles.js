@@ -21,6 +21,29 @@ const list = {
   },
 };
 
+export const TextUnderline = styled.span`
+  position: relative;
+  z-index: 2;
+
+  &:before {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: -10px;
+    width: calc(100% + 20px);
+    height: 25px;
+    border-radius: 6px;
+    background-color: ${(props) => props.theme.navBarHighlight};
+  }
+
+  @media (max-width: ${SMALL}px) {
+    &:before {
+      display: none;
+    }
+  }
+`;
+
 export const StyledContainer = styled.div`
   width: 100%;
   height: 100%;

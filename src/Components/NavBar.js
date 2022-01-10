@@ -3,7 +3,10 @@ import styled, { ThemeProvider } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { SMALL } from '../ScreenSizes';
 import { motion } from 'framer-motion';
-import { staggerContainerVariants } from '../MotionVariants';
+import {
+  staggerContainerVariants,
+  staggerContainerVariantsShort,
+} from '../MotionVariants';
 
 const Logo = styled(motion.h1)`
   font-size: 1.5em;
@@ -56,7 +59,7 @@ const Logo = styled(motion.h1)`
   }
 `;
 
-const List = styled.ul`
+const List = styled(motion.ul)`
   list-style: none;
   transition: opacity 500ms;
   visibility: visible;
@@ -91,25 +94,29 @@ const List = styled.ul`
   }
 `;
 
-const ListItem = styled.li`
+// &:before {
+//   content: '';
+//   position: absolute;
+//   bottom: -5px;
+//   left: 0;
+//   margin-top: 10px;
+//   width: ${(props) => (props.index ? '100%' : '0%')};
+//   height: 3px;
+//   background-color: ${(props) => props.theme.textDark};
+//   transition: width 500ms;
+// }
+
+const ListItem = styled(motion.li)`
   float: right;
   cursor: pointer;
   margin-left: 40px;
   text-decoration: none;
+  text-transform: uppercase;
   position: relative;
-  transition: transform 500ms;
-
-  &:before {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    margin-top: 10px;
-    width: ${(props) => (props.index ? '100%' : '0%')};
-    height: 3px;
-    background-color: ${(props) => props.theme.textDark};
-    transition: width 500ms;
-  }
+  background-color: ${(props) => props.index && props.theme.navBarHighlight};
+  padding: 12px 18px;
+  border-radius: 6px;
+  transition: background-color 500ms;
 
   @media (max-width: ${SMALL}px) {
     float: none;
@@ -123,13 +130,11 @@ const ListItem = styled.li`
 
   &:hover {
     transform: scale(0.95);
-    &:before {
-      width: 100%;
-    }
+    background-color: ${(props) => props.theme.navBarHighlight};
   }
 `;
 
-const StyleLink = styled(motion(Link))`
+const StyleLink = styled(Link)`
   text-decoration: none;
   color: inherit;
 `;
@@ -209,14 +214,13 @@ const topBottomVariants = {
   enter: {
     y: 0,
     opacity: 1,
-    transition: {
-      ease: 'easeOut',
-      duration: 1,
-    },
+    scale: 1,
+    transition: { ease: 'easeOut', duration: 0.5 },
   },
   init: {
     y: -20,
     opacity: 0,
+    scale: 0.5,
   },
 };
 
@@ -225,9 +229,13 @@ const NavBar = ({ index, theme }) => {
   const [hideMenu, setHideMenu] = useState(true);
 
   const toggleMenu = (index, visible) => () => {
-    if ((index == index && index) || window.innerWidth > SMALL) return;
+    console.log(
+      `Index: ${index}, width: ${window.innerWidth}, SMALL: ${SMALL}`
+    );
 
-    console.log(hideMenu);
+    if (window.innerWidth > SMALL) return;
+
+    console.log('HIDE: ' + hideMenu);
 
     setHideMenu(!hideMenu);
   };
@@ -240,39 +248,43 @@ const NavBar = ({ index, theme }) => {
       <List
         animate="enter"
         initial="init"
-        variants={staggerContainerVariants}
+        variants={staggerContainerVariantsShort}
         hidden={hideMenu && hideMenuCauseOfSize}
       >
         <CloseBtn
           onClick={toggleMenu()}
           hidden={hideMenu && hideMenuCauseOfSize}
         />
-        <StyleLink variants={topBottomVariants} to="/contact">
+        <StyleLink to="/contact">
           <ListItem
+            variants={topBottomVariants}
             index={index == '/contact' ? true : false}
             onClick={toggleMenu(3, false)}
           >
             Contact
           </ListItem>
         </StyleLink>
-        <StyleLink variants={topBottomVariants} to="/myWork">
+        <StyleLink to="/myWork">
           <ListItem
+            variants={topBottomVariants}
             index={index == '/myWork' ? true : false}
             onClick={toggleMenu(2, false)}
           >
             My work
           </ListItem>
         </StyleLink>
-        <StyleLink variants={topBottomVariants} to="/aboutMe">
+        <StyleLink to="/aboutMe">
           <ListItem
+            variants={topBottomVariants}
             index={index == '/aboutMe' ? true : false}
             onClick={toggleMenu(1, false)}
           >
             About me
           </ListItem>
         </StyleLink>
-        <StyleLink variants={topBottomVariants} to="/">
+        <StyleLink to="/">
           <ListItem
+            variants={topBottomVariants}
             index={index == '/' ? true : false}
             onClick={toggleMenu(0, false)}
           >

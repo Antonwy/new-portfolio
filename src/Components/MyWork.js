@@ -18,18 +18,14 @@ import { staggerContainerVariants } from '../MotionVariants';
 // });
 
 const Grid = styled(motion.div)`
-  width: 100%;
+  width: calc(100% - 160px);
   height: 80%;
   display: grid;
-  grid-template-areas:
-    'lt lt0 lt1 mt mt0 mt1 rt rt0 rt1'
-    'lm lm0 lm1 mm mm0 mm1 rm rm0 rm1'
-    'lb lb0 lb1 mb mb0 mb1 rb rb0 rb1';
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   padding: 80px;
   z-index: 2;
-  margin: 0 auto;
 
-  @media (max-width: 1200px) {
+  /* @media (max-width: 1200px) {
     width: calc(100% - 160px);
     display: flex;
     flex-direction: row;
@@ -39,18 +35,15 @@ const Grid = styled(motion.div)`
     padding: 80px;
     margin-top: 20px;
     overflow-y: auto;
-  }
+  } */
 
   @media (max-width: ${SMALL}px) {
-    width: 100%;
-    height: 100%;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px 0px;
-    margin-top: 20px;
-    overflow: auto;
+    flex-direction: column;
+    width: calc(100% - 20px);
+    height: 100%;
+    padding: 20px 10px;
+    margin-top: 40px;
   }
 `;
 

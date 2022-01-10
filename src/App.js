@@ -41,6 +41,7 @@ const darkTheme = {
   textNormal: '#FFFFFF',
   textColored: '#D0C9FF',
   textDark: '#786EBC',
+  navBarHighlight: 'rgba(208, 201, 255, 0.1)',
   images: {
     home: {
       normal: HomeStyleDark,
@@ -70,6 +71,7 @@ const lightTheme = {
   textNormal: '#434343',
   textColored: '#5270D2',
   textDark: '#5667A2',
+  navBarHighlight: 'rgba(82, 112,210, 0.1)',
   images: {
     home: {
       normal: HomeStyleLight,

@@ -8,62 +8,33 @@ import { SMALL } from '../ScreenSizes';
 import { motion } from 'framer-motion';
 
 const Bubble = styled(motion.div)`
-  width: ${(props) => `${props.size}vw`};
-  height: ${(props) => `${props.size}vw`};
-  border-radius: 50%;
   background-image: ${(props) =>
     `linear-gradient(-45deg, ${props.color.from} 0%, ${props.color.to} 100%)`};
-  position: relative;
-  grid-area: ${(props) => props.gridArea};
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  border-radius: 5px;
+  justify-content: center;
+  position: relative;
+  padding: 30px;
+  margin: 20px;
 
   &:before {
     content: '';
     position: absolute;
-    left: -0.5vw;
-    top: -0.5vw;
-    width: ${(props) => `${props.size + 1}vw`};
-    height: ${(props) => `${props.size + 1}vw`};
-    border-radius: 50%;
+    left: -10px;
+    top: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    border-radius: 5px;
     background-image: ${(props) =>
       `linear-gradient(-45deg, ${props.color.from} 0%, ${props.color.to} 100%)`};
     z-index: -1;
     opacity: 0.2;
   }
 
-  @media (max-width: 1200px) {
-    width: 48%;
-    height: 70px;
-    border-radius: 5px;
-    background-color: red;
-    grid-area: none;
-    flex-direction: row;
-    justify-content: start;
-    flex-wrap: wrap;
-    margin: 10px 0;
-
-    &:before {
-      display: none;
-    }
-  }
-
   @media (max-width: ${SMALL}px) {
-    width: 100%;
-    height: 70px;
-    min-height: 50px;
-    border-radius: 5px;
-    background-color: red;
-    grid-area: none;
-    flex-direction: row;
-    justify-content: start;
-    margin: 10px 0;
-
-    &:before {
-      display: none;
-    }
+    margin: 15px 0;
   }
 `;
 
@@ -72,7 +43,6 @@ const Title = styled.h1`
   font-size: 17px;
 
   @media (max-width: 1200px) {
-    margin-left: 10px;
     font-size: 1em;
   }
 `;
@@ -99,14 +69,8 @@ const Button = styled.div`
 `;
 
 const Container = styled.div`
-  margin-top: 10px;
+  margin-top: 20px;
   display: flex;
-
-  @media (max-width: 1200px) {
-    margin-top: 0;
-    margin-left: auto;
-    margin-right: 10px;
-  }
 `;
 
 const openLink = (url) => () => {
@@ -123,22 +87,22 @@ const bubbleVariant = {
   enter: {
     scale: 1,
     opacity: 1,
-    transition: { duration: 0.5, ease: 'easeOut' },
+    transition: { duration: 0.3, ease: 'easeOut' },
     x: 0,
     y: 0,
   },
   init: {
-    scale: 3,
+    scale: 0.5,
     opacity: 0,
-    x: (Math.random() > 0.5 ? 1 : -1) * Math.random() * 500,
-    y: (Math.random() > 0.5 ? 1 : -1) * Math.random() * 500,
+    x: 0,
+    y: 100,
   },
   exit: {
     scale: 0,
     opacity: 0,
     transition: { duration: 0.5 },
-    x: (Math.random() > 0.5 ? 1 : -1) * Math.random() * 500,
-    y: (Math.random() > 0.5 ? 1 : -1) * Math.random() * 500,
+    x: 0,
+    y: 200,
   },
 };
 
