@@ -1,10 +1,12 @@
 import React from 'react';
 import { Container, Card, TextUnderline } from './GlobalStyles';
 import styled from 'styled-components';
-import { MEDIUM, SMALL, SUPER_SMALL } from '../ScreenSizes';
+import { SMALL, SUPER_SMALL } from '../ScreenSizes';
 import { motion } from 'framer-motion';
 import ANTON from '../Assets/anton.jpg';
 import { slideInVariants, staggerContainerVariants } from '../MotionVariants';
+import { baseUrl, useAboutMe } from '../API';
+import ReactMarkdown from 'react-markdown';
 
 const Content = styled.div`
   width: calc(100% - 160px);
@@ -47,9 +49,10 @@ const Header = styled(motion.h1)`
   }
 `;
 
-const Text = styled(motion.p)`
+const Text = styled(ReactMarkdown)`
   color: ${(props) => props.theme.textNormal};
   max-width: 600px;
+  line-height: 30px;
 
   @media (max-width: 1000px) {
     text-align: center;
@@ -65,7 +68,7 @@ const Text = styled(motion.p)`
 `;
 
 const Image = styled(motion.div)`
-  background-image: url(${ANTON});
+  background-image: url(${(props) => props.url});
   width: 35vw;
   height: 35vw;
   max-width: 400px;
@@ -91,10 +94,6 @@ const TextSpacer = styled(motion.div)`
   }
 `;
 
-const Link = styled.a`
-  color: ${(props) => props.theme.textDark};
-`;
-
 const imageVariants = {
   enter: {
     scale: 1,
@@ -111,35 +110,27 @@ const imageVariants = {
 };
 
 const AboutMe = (props) => {
+  const [res, loading, error] = useAboutMe();
+
   return (
     <Container image="">
       <Card center>
         <Content>
-          <Image variants={imageVariants} />
+          <Image
+            url={
+              baseUrl +
+              (res?.data?.attributes?.image?.data?.attributes?.formats?.large
+                ?.url ?? '')
+            }
+            variants={imageVariants}
+          />
           <TextSpacer variants={staggerContainerVariants}>
             <Header variants={slideInVariants}>
               About <TextUnderline>me</TextUnderline>
             </Header>
-            <Text variants={slideInVariants}>
-              Hi I’m Anton Wyrowski!
-              <br />
-              I’m currently living in Munich, Germany to study Computer Science
-              at the Technical University of Munich.
-              <br />
-              <br />
-              By now, I have programmed multiple Websites and Apps which you can
-              check out by clicking on 'My work'.
-              <br />
-              <br />
-              In addition to my studies, I also founded a startup with a friend,
-              which develops an app with which you can quickly and easily donate
-              to a wide variety of charities.
-              <br />
-              For more information click{' '}
-              <Link href="https://one-dollar-movement.com" target="_blank">
-                here
-              </Link>
-            </Text>
+            <motion.div variants={slideInVariants}>
+              <Text children={res?.data?.attributes?.text ?? ''} />
+            </motion.div>
           </TextSpacer>
         </Content>
       </Card>

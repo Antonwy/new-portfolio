@@ -25,6 +25,10 @@ h1 {
   font-weight: 600;
 }
 
+a {
+  color: #786ebc;
+}
+
 .switch-wrapper {
   position: relative;
 }
