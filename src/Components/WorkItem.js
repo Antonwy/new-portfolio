@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import Github from '../Assets/githubIcon.svg';
 import Open from '../Assets/openIcon.svg';
-import { slideInVariants } from '../MotionVariants';
 import { SMALL } from '../ScreenSizes';
 import { motion } from 'framer-motion';
 
@@ -12,7 +11,7 @@ const Bubble = styled(motion.div)`
     `linear-gradient(-45deg, ${props.color.from} 0%, ${props.color.to} 100%)`};
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   border-radius: 5px;
   justify-content: center;
   position: relative;
@@ -38,9 +37,39 @@ const Bubble = styled(motion.div)`
   }
 `;
 
+const Image = styled.img`
+  height: 100%;
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 4px;
+  ${'' /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */}
+`;
+
+const TextSpacer = styled(motion.div)`
+  margin-left: 40px;
+
+  @media (max-width: 1000px) {
+    margin-left: 0;
+    margin-top: 20px;
+    padding-bottom: 40px;
+  }
+`;
+
 const Title = styled.h1`
   color: white;
-  font-size: 17px;
+  font-size: 27px;
+  margin-top: 20px;
+
+  @media (max-width: 1200px) {
+    font-size: 1.5em;
+  }
+`;
+
+const Text = styled.p`
+  color: white;
+  font-size: 12px;
+  margin-top: 15px;
 
   @media (max-width: 1200px) {
     font-size: 1em;
@@ -48,14 +77,10 @@ const Title = styled.h1`
 `;
 
 const Button = styled.div`
-  width: 36px;
-  height: 36px;
-  border-radius: 23px;
-  background-image: ${(props) =>
-    `linear-gradient(45deg, ${props.color.from} 0%, ${props.color.to} 100%)`};
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.navBarHighlight};
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -106,21 +131,26 @@ const bubbleVariant = {
   },
 };
 
-const WorkItem = ({ size, color, gridArea, title, url, github }) => {
+const WorkItem = ({ color, title, description, url, imageUrl, github }) => {
   return (
-    <Bubble
-      variants={bubbleVariant}
-      size={size}
-      color={color}
-      gridArea={gridArea}
-    >
+    <Bubble variants={bubbleVariant} color={color}>
+      <Image src={imageUrl} />
       <Title>{title}</Title>
+      <Text>{description}</Text>
       <Container>
-        <Button color={color}>
-          <img width="20" src={Open} onClick={openLink(url)}></img>
-        </Button>
+        {url ? (
+          <Button color={color}>
+            <img width="20" src={Open} onClick={openLink(url)}></img>
+          </Button>
+        ) : (
+          <div></div>
+        )}
         {github ? (
-          <Button style={{ marginLeft: '10px' }} color={color} icon={Github}>
+          <Button
+            style={{ marginLeft: url ? '10px' : '0' }}
+            color={color}
+            icon={Github}
+          >
             <img
               width="20"
               src={Github}

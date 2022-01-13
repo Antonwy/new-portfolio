@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { SMALL } from '../ScreenSizes';
-import { motion } from 'framer-motion';
-import {
-  staggerContainerVariants,
-  staggerContainerVariantsShort,
-} from '../MotionVariants';
+import { motion, useViewportScroll } from 'framer-motion';
+import { staggerContainerVariantsShort } from '../MotionVariants';
 
 const Logo = styled(motion.h1)`
   font-size: 1.5em;
@@ -109,7 +106,7 @@ const List = styled(motion.ul)`
 const ListItem = styled(motion.li)`
   float: right;
   cursor: pointer;
-  margin-left: 40px;
+  margin-left: 20px;
   text-decoration: none;
   text-transform: uppercase;
   position: relative;
@@ -174,13 +171,16 @@ const Menu = styled.div`
   }
 `;
 
-const NavBarContainer = styled(motion.div)`
-  padding: 50px 80px;
+const NavBarContainer = styled.div`
+  padding: 50px 80px 30px 80px;
   position: fixed;
   top: 0;
   left: 0;
   width: calc(100vw - 160px);
   z-index: 200;
+  background-color: ${(props) =>
+    props.scroll > 50 ? props.theme.gradient.to : 'transparent'};
+  transition: background-color 250ms;
 
   @media (max-width: ${SMALL}px) {
     padding: 20px;
@@ -227,21 +227,27 @@ const topBottomVariants = {
 const NavBar = ({ index, theme }) => {
   const hideMenuCauseOfSize = useWindowSizeToHide();
   const [hideMenu, setHideMenu] = useState(true);
+  const [scroll, setScroll] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setScroll(0);
+      const el = document.getElementsByClassName('scroll-listenable')?.item(0);
+
+      el?.addEventListener('scroll', (event) => {
+        setScroll(event.target.scrollTop);
+      });
+    }, 1000);
+  }, [index]);
 
   const toggleMenu = (index, visible) => () => {
-    console.log(
-      `Index: ${index}, width: ${window.innerWidth}, SMALL: ${SMALL}`
-    );
-
     if (window.innerWidth > SMALL) return;
-
-    console.log('HIDE: ' + hideMenu);
 
     setHideMenu(!hideMenu);
   };
 
   return (
-    <NavBarContainer>
+    <NavBarContainer scroll={scroll}>
       <Logo animate="enter" initial="init" variants={topBottomVariants}>
         ANTONWY
       </Logo>

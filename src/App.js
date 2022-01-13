@@ -105,7 +105,7 @@ const App = () => {
 
   return (
     <ThemeProvider style={{ width: '100%', height: '100%' }} theme={theme}>
-      <NavBar key="navbar" index={location.pathname} />
+      <NavBar index={location.pathname} />
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
           <Route exact path="/" component={buildHome} />

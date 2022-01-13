@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { SMALL } from '../ScreenSizes';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
+import { useEffect } from 'react';
+import { FoldingCube } from 'better-react-spinkit';
 
 const list = {
   enter: {
@@ -68,6 +70,71 @@ export const Container = ({ children, image }) => (
     <StyledContainer image={image}>{children}</StyledContainer>
   </motion.div>
 );
+
+export const AsyncState = { loading: 0, done: 1, error: 2 };
+
+const loadingIndicatorVariants = {
+  enter: {
+    opacity: 0,
+  },
+  loading: {
+    opacity: 1,
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+  init: {
+    opacity: 1,
+  },
+};
+
+export const AsyncContainer = ({ children, image, state, theme }) => {
+  const controls = useAnimation();
+
+  useEffect(() => {
+    console.log(state);
+    switch (state) {
+      case AsyncState.loading:
+        controls.start('loading');
+      case AsyncState.done:
+        controls.start('enter');
+      case AsyncState.error:
+        controls.start('error');
+    }
+  }, [state]);
+
+  return (
+    <div>
+      <CenteredContainer
+        layout
+        initial="init"
+        animate={controls}
+        exit="exit"
+        variants={loadingIndicatorVariants}
+      >
+        <FoldingCube size={30} color={theme.textColored}></FoldingCube>
+      </CenteredContainer>
+      <motion.div initial="init" animate={controls} exit="exit" variants={list}>
+        <StyledContainer image={image}>{children}</StyledContainer>
+      </motion.div>
+    </div>
+  );
+};
+
+export const CenteredContainer = styled(motion.div)`
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+`;
 
 export const ContentContainer = styled.div`
   padding-left: 80px;

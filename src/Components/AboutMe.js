@@ -1,5 +1,11 @@
 import React from 'react';
-import { Container, Card, TextUnderline } from './GlobalStyles';
+import {
+  Container,
+  Card,
+  TextUnderline,
+  AsyncContainer,
+  AsyncState,
+} from './GlobalStyles';
 import styled from 'styled-components';
 import { SMALL, SUPER_SMALL } from '../ScreenSizes';
 import { motion } from 'framer-motion';
@@ -109,18 +115,24 @@ const imageVariants = {
   },
 };
 
-const AboutMe = (props) => {
+const AboutMe = ({ theme }) => {
   const [res, loading, error] = useAboutMe();
 
+  const state = () => {
+    if (error) return AsyncState.error;
+    if (loading) return AsyncState.loading;
+    if (res) return AsyncState.done;
+  };
+
   return (
-    <Container image="">
+    <AsyncContainer theme={theme} state={state()} image="">
       <Card center>
         <Content>
           <Image
             url={
               baseUrl +
-              (res?.data?.attributes?.image?.data?.attributes?.formats?.large
-                ?.url ?? '')
+              (res?.attributes?.image?.data?.attributes?.formats?.large?.url ??
+                '')
             }
             variants={imageVariants}
           />
@@ -129,12 +141,12 @@ const AboutMe = (props) => {
               About <TextUnderline>me</TextUnderline>
             </Header>
             <motion.div variants={slideInVariants}>
-              <Text children={res?.data?.attributes?.text ?? ''} />
+              <Text children={res?.attributes?.text ?? ''} />
             </motion.div>
           </TextSpacer>
         </Content>
       </Card>
-    </Container>
+    </AsyncContainer>
   );
 };
 
