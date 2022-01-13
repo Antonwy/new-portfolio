@@ -18,7 +18,6 @@ export const useMyWork = () => {
 
 export const useAboutMe = () => {
   const query = qs.stringify({
-    sort: ['title:asc'],
     populate: ['image'],
   });
 
