@@ -5,13 +5,24 @@ export const baseUrl = 'https://cms.antonwy.tech';
 export const apiUrl = baseUrl + '/api';
 const jwt =
   '655169a886d44874ef73ecf854c84847f28770a81b28e60a567e7da8c4d72e260cb167914fb06a6544c389c8c981a574d2bba842618c88b63654409c92baa12e29f1e0b8f0343f030523cc3aa621f3411c739c5901c90071c056342908f77f8ed549f906b69753f47c36c9ada77943325c8d876a338c8613bdd9cb44c82ff1fc';
+import qs from 'qs';
 
 export const useMyWork = () => {
-  return useApi('/projects?populate[0]=image');
+  const query = qs.stringify({
+    sort: ['title:asc'],
+    populate: ['image'],
+  });
+
+  return useApi(`/projects?${query}`);
 };
 
 export const useAboutMe = () => {
-  return useApi('/about-me?populate[0]=image');
+  const query = qs.stringify({
+    sort: ['title:asc'],
+    populate: ['image'],
+  });
+
+  return useApi(`/about-me?${query}`);
 };
 
 export const useApi = (route) => {

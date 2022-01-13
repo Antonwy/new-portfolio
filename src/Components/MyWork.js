@@ -9,7 +9,7 @@ import { baseUrl, useMyWork } from '../API';
 
 const Grid = styled(motion.div)`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   padding: 80px;
   z-index: 2;
 
