@@ -94,8 +94,24 @@ const Button = styled.div`
 `;
 
 const Container = styled.div`
-  margin-top: 20px;
+  margin-top: 12px;
   display: flex;
+`;
+
+const SkillContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+`;
+
+const SkillTag = styled.div`
+  background-color: ${(props) => props.color};
+  color: white;
+  padding: 6px;
+  border-radius: 4px;
+  font-size: 12px;
 `;
 
 const openLink = (url) => () => {
@@ -131,12 +147,29 @@ const bubbleVariant = {
   },
 };
 
-const WorkItem = ({ color, title, description, url, imageUrl, github }) => {
+const WorkItem = ({
+  color,
+  title,
+  description,
+  url,
+  imageUrl,
+  github,
+  skills,
+}) => {
+  const skillItems = [];
+
+  for (const skill of skills) {
+    skillItems.push(
+      <SkillTag color={color.to}>{skill.attributes.type}</SkillTag>
+    );
+  }
+
   return (
     <Bubble variants={bubbleVariant} color={color}>
       <Image src={imageUrl} />
       <Title>{title}</Title>
       <Text>{description}</Text>
+      <SkillContainer>{skillItems}</SkillContainer>
       <Container>
         {url ? (
           <Button color={color}>

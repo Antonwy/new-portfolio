@@ -35,7 +35,10 @@ const MyWork = ({ theme }) => {
         title={item.attributes.title}
         key={item.attributes.title}
         description={item.attributes.description}
-        imageUrl={baseUrl + item.attributes.image.data.attributes.url}
+        imageUrl={
+          baseUrl + item.attributes.image.data.attributes.formats.medium.url
+        }
+        skills={item.attributes.skills.data}
         url={item.attributes.url}
         github={item.attributes.github}
       />

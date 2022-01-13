@@ -10,7 +10,7 @@ import qs from 'qs';
 export const useMyWork = () => {
   const query = qs.stringify({
     sort: ['title:asc'],
-    populate: ['image'],
+    populate: ['image', 'skills'],
   });
 
   return useApi(`/projects?${query}`);

@@ -180,7 +180,10 @@ const NavBarContainer = styled.div`
   z-index: 200;
   background-color: ${(props) =>
     props.scroll > 50 ? props.theme.gradient.to : 'transparent'};
-  transition: background-color 250ms;
+
+  box-shadow: rgba(0, 0, 0, ${(props) => (props.scroll > 50 ? 0.4 : 0.0)}) 0px
+    8px 24px;
+  transition: background-color 250ms, box-shadow 250ms;
 
   @media (max-width: ${SMALL}px) {
     padding: 20px;
