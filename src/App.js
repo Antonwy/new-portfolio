@@ -26,6 +26,7 @@ import HamburgerLight from './Assets/Light/hamburger_light.svg';
 
 import CloseDark from './Assets/Dark/close_dark.svg';
 import CloseLight from './Assets/Light/close_light.svg';
+
 import NavBar from './Components/NavBar';
 
 const darkTheme = {

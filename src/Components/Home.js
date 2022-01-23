@@ -62,6 +62,39 @@ const ThemeButton = styled(motion.div)`
   }
 `;
 
+export const HireMeButton = styled(motion.div)`
+  width: 150px;
+  text-align: center;
+  margin-top: 30px;
+  border: 2px solid ${(props) => props.theme.textDark};
+  padding: 10px 0px;
+  border-radius: 5px;
+  color: ${(props) => props.theme.textColored};
+  transition: box-shadow 500ms, color 250ms;
+  text-decoration: none;
+  position: relative;
+  cursor: pointer;
+  background-color: ${(props) => props.theme.textDark};
+  font-size: 15px;
+  color: #fff;
+
+  &:hover {
+    box-shadow: 0 0 20px -2px ${(props) => props.theme.textDark};
+    color: #fff;
+  }
+
+  @media (max-width: ${SMALL}px) {
+    margin: 20px auto;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+const ButtonSpacer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+`;
+
 const buttonVariants = {
   enter: {
     scale: 1,
@@ -113,9 +146,17 @@ const Home = ({ theme, changeTheme }) => {
           <SubHeader variants={slideInVariants}>
             I’m a german Software developer.
           </SubHeader>
-          <Button variants={buttonVariants} to="/aboutMe">
-            Learn More
-          </Button>
+          <ButtonSpacer>
+            <Button variants={buttonVariants} to="/aboutMe">
+              Learn More
+            </Button>
+            <HireMeButton
+              onClick={() => window.open('https://it.antonwy.tech', '_blank')}
+              variants={buttonVariants}
+            >
+              Hire me 🥳
+            </HireMeButton>
+          </ButtonSpacer>
         </ContentContainer>
 
         <ThemeChooserContainer variants={staggerContainerVariants}>
